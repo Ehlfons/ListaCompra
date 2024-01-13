@@ -1,0 +1,16 @@
+#detailsforms {
+    margin: 5px 0 4px;
+    color: lightgoldenrodyellow;
+    font-size: 1em;
+    text-align: center;
+    font-weight: 600;
+    border: 2px solid lightgoldenrodyellow;
+    width: 97.3%;
+}
+
+#detailsforms-h2 {
+    color: lightgoldenrodyellow;
+    font-size: 1em;
+    margin-top: 20px;
+    margin-left: 20px;
+}
