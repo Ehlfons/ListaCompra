@@ -1,0 +1,77 @@
+#acciones-h2 {
+    font-size: 1em;
+    color: lightcoral;
+    border: 2px solid lightcoral;
+    font-weight: 400;
+    padding: 5px 10px;
+}
+
+#filtros {
+    position: absolute;
+    top: 43px;
+    left: 389px;
+    background-color: #111111;
+    border: 2px solid lavender;
+    padding: 10px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: self-end;
+    gap: 10px;
+    border-radius: 5px;
+}
+
+#acciones-button {
+    background-color: lavender;
+    border: 2px solid lavender;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    font-weight: 400;
+} #acciones-button:hover {
+    background-color: #111111;
+    color: lavender;
+    transition: all 0.3s ease-in-out;
+}
+
+#filtros > button {
+    width: 100%;
+    background-color: lavender;
+    border: 2px solid lavender;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    font-weight: 400;
+} #filtros > button:hover {
+    background-color: #111111;
+    color: lavender;
+    transition: all 0.3s ease-in-out;
+}
+
+#inputs {
+    position: absolute;
+    top: 29.4%;
+    left: 96.3%;
+    background-color: #111111;
+    border: 2px solid lavender;
+    padding: 10px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: self-end;
+    gap: 10px;
+    border-radius: 5px;
+}
+#input-nombre, #input-precio, #input-peso {
+    background-color: lavender;
+    border: 2px solid lavender;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    font-weight: 400;
+}
+
+.hide {
+    display: none;
+    visibility: hidden;
+}

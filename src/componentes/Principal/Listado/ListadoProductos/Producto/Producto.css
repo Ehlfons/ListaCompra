@@ -1,0 +1,23 @@
+#producto {
+    color: lavender;
+    font-size: 1em;
+    margin-top: 20px;
+    margin-left: 25px;
+}
+
+div.producto-imagen, img {
+    margin-left: 1%;
+    width: 40px;
+    height: 40px;
+}
+
+.producto {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 0.8em;
+    margin: 0 20px;
+    padding: 5px 0;    
+    outline: 2px solid lavender;
+    gap: 10px;
+}

@@ -1,0 +1,25 @@
+#contenedor-productos {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 97.6%;
+    width: 97%;
+    border: 2px solid lavender;
+    position: relative;
+}
+
+#contenedor-productos-h2 {
+    color: lavender;
+    font-size: 1em;
+    margin-left: 20px;
+}
+
+#row {
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 20px;
+}
