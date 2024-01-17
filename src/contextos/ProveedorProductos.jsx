@@ -16,7 +16,6 @@ const ProveedorProductos = ({ children }) => {
   const [situacion, setSituacion] = useState(cadenaCargando);
   const [valorPeso, setValorPeso] = useState(valorInicial);
   const [valorPrecio, setValorPrecio] = useState(valorInicial);
-  const [valorNombre, setValorNombre] = useState(cadenaInicial);
   const [ordenAscendente, setOrdenAscendente] = useState(valorInicialBooleano); // Estado para alternar el orden ascendente/descendente de los filtros.
 
   // Función para obtener el listado de Productos.
@@ -142,10 +141,6 @@ const ProveedorProductos = ({ children }) => {
     setValorPrecio(nuevoValor);
   };
 
-  const actualizarValorNombre = (nuevoValor) => {
-    setValorNombre(nuevoValor);
-  };
-
   const actualizarOrden = (nuevoValor) => {
     setOrdenAscendente(nuevoValor);
   };
@@ -168,8 +163,6 @@ const ProveedorProductos = ({ children }) => {
     actualizarValorPeso,
     valorPrecio,
     actualizarValorPrecio,
-    valorNombre,
-    actualizarValorNombre,
     ordenAscendente,
     actualizarOrden,
     toggleHideClass,

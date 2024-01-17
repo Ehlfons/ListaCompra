@@ -11,7 +11,7 @@ body {
 }
 
 #root {
-    height: 100vh;
+    height: auto;
     width: 960px;
     display: grid;
     grid-template-rows: 15% 80% 5%;
@@ -38,11 +38,13 @@ main {
 footer {
   grid-area: footer;
   border: 2px solid lightsteelblue;
-    margin: 5px;
+  margin: 5px;
+  margin-top: -10px;
     padding: 0 20px;
     color: lightsteelblue;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .error-message {

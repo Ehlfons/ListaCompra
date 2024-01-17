@@ -12,8 +12,6 @@ const Acciones = () => {
     valorPeso,
     actualizarValorPeso,
     filtrarProductosNombre,
-    valorNombre,
-    actualizarValorNombre,
     ordenarProductos,
     ordenAscendente,
     actualizarOrden,
@@ -58,13 +56,14 @@ const Acciones = () => {
         >
           Ordenar por peso
         </button>
-        <button
-          onClick={() => {
-            filtrarProductosNombre(valorNombre);
+        <input
+          type="text"
+          placeholder="Nombre del producto"
+          id="input-nombre"
+          onChange={(e) => {
+            filtrarProductosNombre(e.target.value);
           }}
-        >
-          Filtrar por nombre
-        </button>
+        />
         <button
           onClick={() => {
             filtrarProductosPrecio(valorPrecio);
@@ -81,14 +80,6 @@ const Acciones = () => {
         </button>
       </div>
       <div id="inputs" className="hide">
-        <input
-          type="text"
-          placeholder="Nombre del producto"
-          id="input-nombre"
-          onChange={(e) => {
-            actualizarValorNombre(e.target.value);
-          }}
-        />
         <input
           type="number"
           placeholder="Precio del producto"
