@@ -59,3 +59,8 @@ footer {
   align-items: center;
   justify-content: center;
 }
+
+#errorPage {
+  margin-top: 30px;
+  color: red;
+}

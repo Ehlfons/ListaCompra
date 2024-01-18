@@ -3,6 +3,7 @@
     height: auto;
     border: 2px solid burlywood;
     padding: 0 20px 20px;
+    min-height: 100px;
 }
 
 #principal-h2 {

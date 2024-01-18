@@ -29,6 +29,7 @@ const Inicio = () => {
       <ol start='0'>
         <li>git switch master (estado inicial)</li>
         <li>git switch consulta</li>
+        <li>git switch creacion</li>
       </ol>
     </Fragment>
   );

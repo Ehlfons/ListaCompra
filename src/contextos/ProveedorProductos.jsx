@@ -4,16 +4,25 @@ import { supabaseConexion } from "../config/supabase.js";
 const ContextoProductos = createContext();
 
 const ProveedorProductos = ({ children }) => {
-  // Valores iniciales para los estados
+  // Valores iniciales para los estados.
   const arrayInicial = [];
   const cadenaCargando = "Cargando datos...";
   const cadenaInicial = "";
   const valorInicial = 0;
   const valorInicialBooleano = true;
+  const valoresInicialesProducto = {
+    nombre: "",
+    precio: "",
+    peso: "",
+    descripcion: "",
+    imagen: "",
+  };
 
   // Estados.
   const [listadoProductos, setListadoProductos] = useState(arrayInicial);
+  const [producto, setProducto] = useState(valoresInicialesProducto);
   const [situacion, setSituacion] = useState(cadenaCargando);
+  const [error, setError] = useState(cadenaInicial);
   const [valorPeso, setValorPeso] = useState(valorInicial);
   const [valorPrecio, setValorPrecio] = useState(valorInicial);
   const [ordenAscendente, setOrdenAscendente] = useState(valorInicialBooleano); // Estado para alternar el orden ascendente/descendente de los filtros.
@@ -55,10 +64,12 @@ const ProveedorProductos = ({ children }) => {
   const filtrarProductosPrecio = async (precio) => {
     try {
       if (!precio || isNaN(precio)) {
-        setSituacion("Por favor, ingrese un valor numérico para realizar el filtro por precio.");
+        setSituacion(
+          "Por favor, ingrese un valor numérico para realizar el filtro por precio."
+        );
         // Restablecer el estado después de 3 segundos.
         setTimeout(() => {
-          setSituacion(cadenaInicial);          
+          setSituacion(cadenaInicial);
         }, 3000);
       }
 
@@ -82,7 +93,9 @@ const ProveedorProductos = ({ children }) => {
     try {
       // Si el valor del peso no es numérico o está vacío, se muestra un mensaje de error y se restablece el listado.
       if (!peso || isNaN(peso)) {
-        setSituacion("Por favor, ingrese un valor numérico para realizar el filtro por peso.");
+        setSituacion(
+          "Por favor, ingrese un valor numérico para realizar el filtro por peso."
+        );
         setTimeout(() => {
           setSituacion(cadenaInicial);
         }, 3000);
@@ -122,6 +135,74 @@ const ProveedorProductos = ({ children }) => {
       setListadoProductos(data);
     } catch (error) {
       setSituacion(`Error al ordenar los productos: ${error.message}`);
+    }
+  };
+
+  //Función para obtener los datos de un registro.
+  const obtenerProducto = async (id) => {
+    setError(cadenaInicial); // Por si se ha producido un error previo.
+    try {
+      const { data, error } = await supabaseConexion
+        .from("productos")
+        .select("*")
+        .eq("id", id);
+
+      if (error) {
+        throw error;
+      }
+      setProducto(data[0]);
+    } catch (error) {
+      setSituacion(error.message);
+    }
+  };
+
+  // Función para actualizar los datos de un formulario al estado producto.
+  const actualizarDato = (e) => {
+    const { name, value } = e.target;
+    setProducto({ ...producto, [name]: value });
+  };
+
+  // Función para insertar el estado producto en la base de datos.
+  const crearProducto = async () => {
+    try {
+      const { error } = await supabaseConexion
+        .from("productos")
+        .insert(producto);
+      
+      if (error) {
+        throw error;  
+      }
+
+      setProducto(valoresInicialesProducto); // Borrar el formulario tras la creación del producto. 
+
+      // Actualizar el estado "listadoProductos" para que aparezca el nuevo producto.
+      setListadoProductos([...listadoProductos, producto]);
+    } catch (error) {
+      setSituacion(`Error al crear el producto: ${error.message}`);
+    }
+  };
+
+  const actualizarProducto = async () => {
+    try {
+      const { error } = await supabaseConexion
+        .from("productos")
+        .update(producto)
+        .eq("id", producto.id);
+
+      if (error) {
+        throw error;
+      }
+
+      // Se crea un nuevo array con los cambios del formulario.
+      const productosCambiados = listadoProductos.map((productoAntiguo) => {
+        return productoAntiguo.id === producto.id ? producto : productoAntiguo;
+      });
+      // Se actualiza el estado con los nuevos datos.
+      setListadoProductos(productosCambiados);
+      // Se borra el formulario tras el cambio.
+      setProducto(valoresInicialesProducto);
+    } catch (error) {
+      setError(`Error al actualizar el producto: ${error.message}`);
     }
   };
 
@@ -166,6 +247,12 @@ const ProveedorProductos = ({ children }) => {
     ordenAscendente,
     actualizarOrden,
     toggleHideClass,
+    obtenerProducto,
+    producto,
+    actualizarDato,
+    crearProducto,
+    actualizarProducto,
+    error,
   };
 
   return (
