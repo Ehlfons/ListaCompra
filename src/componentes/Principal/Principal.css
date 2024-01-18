@@ -1,18 +1,12 @@
 #principal {
     margin: 10px 5px 20px;
-    height: 590px;
+    height: auto;
     border: 2px solid burlywood;
-    padding: 0 20px 70px;
+    padding: 0 20px 20px;
 }
 
 #principal-h2 {
     color: burlywood;
     font-size: 1em;
     margin-top: 20px;
-}
-
-#info {
-    display: grid;
-    grid-template-columns: 1.3fr 0.7fr;
-    grid-template-rows: 62vh;
 }

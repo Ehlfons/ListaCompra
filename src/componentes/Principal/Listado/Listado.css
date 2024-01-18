@@ -3,11 +3,9 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    min-height: 97.6%;
-    width: 97%;
     border: 2px solid lavender;
     position: relative;
-    padding-bottom: 120px;
+    padding-bottom: 20px;
 }
 
 #contenedor-productos-h2 {

@@ -9,7 +9,7 @@
 #filtros {
     position: absolute;
     top: 43px;
-    left: 349px;
+    left: 670px;
     background-color: #111111;
     border: 2px solid lavender;
     padding: 10px;
@@ -50,8 +50,8 @@
 
 #inputs {
     position: absolute;
-    top: 35.8%;
-    left: 549px;
+    top: 203px;
+    left: 470px;
     background-color: #111111;
     border: 2px solid lavender;
     padding: 10px;
