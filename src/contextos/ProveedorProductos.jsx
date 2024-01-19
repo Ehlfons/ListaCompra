@@ -28,7 +28,7 @@ const ProveedorProductos = ({ children }) => {
   const [ordenAscendente, setOrdenAscendente] = useState(valorInicialBooleano); // Estado para alternar el orden ascendente/descendente de los filtros.
 
   // Función para obtener el listado de Productos.
-  const obtenerListadoSencillo = async () => {
+  const obtenerListadoProductos = async () => {
     try {
       const { data, error } = await supabaseConexion
         .from("productos")
@@ -139,7 +139,7 @@ const ProveedorProductos = ({ children }) => {
   };
 
   //Función para obtener los datos de un registro.
-  const obtenerProducto = async (id) => {
+  const getProducto = async (id) => {
     setError(cadenaInicial); // Por si se ha producido un error previo.
     try {
       const { data, error } = await supabaseConexion
@@ -157,13 +157,13 @@ const ProveedorProductos = ({ children }) => {
   };
 
   // Función para actualizar los datos de un formulario al estado producto.
-  const actualizarDato = (e) => {
+  const cambiarDatosProducto = (e) => {
     const { name, value } = e.target;
     setProducto({ ...producto, [name]: value });
   };
 
-  // Función para insertar el estado producto en la base de datos.
-  const crearProducto = async () => {
+  // Función para insertar el nuevo producto en la base de datos.
+  const insertProducto = async () => {
     try {
       const { error } = await supabaseConexion
         .from("productos")
@@ -182,7 +182,7 @@ const ProveedorProductos = ({ children }) => {
     }
   };
 
-  const actualizarProducto = async () => {
+  const updateProducto = async () => {
     try {
       const { error } = await supabaseConexion
         .from("productos")
@@ -228,14 +228,14 @@ const ProveedorProductos = ({ children }) => {
 
   // Efecto para obtener el listado de Productos.
   useEffect(() => {
-    obtenerListadoSencillo();
-  }, []);
+    obtenerListadoProductos();
+  }, [listadoProductos]);
 
   // Datos a exportar al contexto.
   const datosAExportar = {
     listadoProductos,
     situacion,
-    obtenerListadoSencillo,
+    obtenerListadoProductos,
     filtrarProductosNombre,
     filtrarProductosPrecio,
     filtrarProductosPeso,
@@ -247,11 +247,11 @@ const ProveedorProductos = ({ children }) => {
     ordenAscendente,
     actualizarOrden,
     toggleHideClass,
-    obtenerProducto,
+    getProducto,
     producto,
-    actualizarDato,
-    crearProducto,
-    actualizarProducto,
+    cambiarDatosProducto,
+    insertProducto,
+    updateProducto,
     error,
   };
 

@@ -16,6 +16,9 @@ const Menu = () => {
         <li>
           <Link to="/Creacion">Creación</Link>
         </li>
+        <li>
+          <Link to="/Edicion">Editar</Link>
+        </li>
       </ul>
     </nav>
     </div>

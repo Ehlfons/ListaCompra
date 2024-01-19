@@ -9,8 +9,8 @@ const ListadoProductos = () => {
     <Fragment>
       <div className="listado-productos">
         {listadoProductos.length
-          ? listadoProductos.map((v, i, a) => (
-              <Producto key={v.id} datos={v} />
+          ? listadoProductos.map((producto, i, a) => (
+              <Producto key={i} datos={producto} />
             ))
           : situacion && <div className="error-message">{situacion}</div>}
       </div>

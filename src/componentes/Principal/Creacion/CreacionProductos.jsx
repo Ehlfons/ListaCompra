@@ -2,13 +2,13 @@ import { Fragment } from "react";
 import useProductos from "../../../hooks/useProductos.jsx";
 import "./CreacionProductos.css";
 
-const CreacionProductos = () => {
-  const { producto, error, actualizarDato, crearProducto } = useProductos();
+const CreacionProductos = (crear) => {
+  const { producto, error, cambiarDatosProducto, insertProducto, updateProducto } = useProductos();
 
   return (
     <Fragment>
       <h2 className="formulario-h2">Información Producto</h2>
-      {error ? (
+      {error.length > 0 ? (
         error
       ) : (
         <div id="formulario">
@@ -19,7 +19,7 @@ const CreacionProductos = () => {
               name="nombre"
               value={producto.nombre || ""}
               onChange={(e) => {
-                actualizarDato(e);
+                cambiarDatosProducto(e);
               }}
             />
           </p>
@@ -31,7 +31,7 @@ const CreacionProductos = () => {
               min={0}
               value={producto.precio || ""}
               onChange={(e) => {
-                actualizarDato(e);
+                cambiarDatosProducto(e);
               }}
             />
           </p>
@@ -43,7 +43,7 @@ const CreacionProductos = () => {
               min={0}
               value={producto.peso || ""}
               onChange={(e) => {
-                actualizarDato(e);
+                cambiarDatosProducto(e);
               }}
             />
           </p>
@@ -54,7 +54,7 @@ const CreacionProductos = () => {
               name="descripcion"
               value={producto.descripcion || ""}
               onChange={(e) => {
-                actualizarDato(e);
+                cambiarDatosProducto(e);
               }}
             />
           </p>
@@ -65,7 +65,7 @@ const CreacionProductos = () => {
               name="imagen"
               value={producto.imagen || ""}
               onChange={(e) => {
-                actualizarDato(e);
+                cambiarDatosProducto(e);
               }}
             />
           </p>
@@ -73,10 +73,10 @@ const CreacionProductos = () => {
             <button
               className="crear-producto"
               onClick={(e) => {
-                crearProducto(e);
+                crear ? insertProducto(e) : updateProducto(e);
               }}
             >
-              Guardar producto
+              {crear ? "Crear Producto" : "Actualizar Producto"}
             </button>
           </p>
         </div>

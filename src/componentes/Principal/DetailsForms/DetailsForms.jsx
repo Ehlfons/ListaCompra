@@ -1,11 +1,15 @@
-import React from 'react'
+import {Fragment} from 'react'
+import CreacionProductos from '../Creacion/CreacionProductos.jsx'
 import './DetailsForms.css'
 
 const DetailsForms = () => {
   return (
-    <div id='detailsforms'>
-      <h2 id="detailsforms-h2">Detalles y Formularios</h2>
-    </div>
+    <Fragment>
+      <div id='detailsforms'>
+        <h2 id="detailsforms-h2">Detalles y Formularios</h2>
+        <CreacionProductos crear='false' />
+      </div>
+    </Fragment>
   )
 }
 
