@@ -52,3 +52,10 @@ label {
   color: lavender;
   transition: all 0.3s ease-in-out;
 }
+
+#detailsforms {
+  margin: 0 5px;
+  height: auto;
+  border: 2px solid lavender;
+  padding-bottom: 20px;
+}
