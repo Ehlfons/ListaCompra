@@ -8,7 +8,12 @@ const Resumen = () => {
   // Calcular el número total de productos.
   const numeroDeProductos = listadoProductos.length;
 
-  // Calcular el precio promedio de los productos.
+  /*
+   * Calcular el precio promedio de los productos.
+   * Se calcula la suma de todos los precios y se divide por el número de productos.
+   * El valor se redondea a dos decimales.
+   * Si no hay productos, el precio promedio es 0.
+   */
   const precioPromedio =
     numeroDeProductos > 0
       ? listadoProductos.reduce(

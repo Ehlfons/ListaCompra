@@ -15,7 +15,8 @@ const Acciones = () => {
     ordenarProductos,
     ordenAscendente,
     actualizarOrden,
-    toggleHideClass,
+    elementosVisible,
+    toggleElementos,
   } = useProductos();
 
   return (
@@ -24,18 +25,17 @@ const Acciones = () => {
         <button
           id="acciones-button"
           onClick={() => {
-            toggleHideClass("filtros");
-            toggleHideClass("inputs");
+            toggleElementos() // Mostrar/Ocultar los filtros.
           }}
         >
           Acciones/Filtros
         </button>
       </div>
-      <div id="filtros" className="hide">
+      <div id="filtros" className={elementosVisible ? "" : "hide"}> {/* Si el valor de elementosVisible es true, se muestra el div, si es false, se oculta. */}
         <button
           onClick={() => {
             ordenarProductos(ordenAscendente, "nombre");
-            actualizarOrden(!ordenAscendente); // Invertir el orden al hacer click.
+            actualizarOrden(!ordenAscendente); // Invertir el orden al hacer clic.
           }}
         >
           Ordenar por nombre
@@ -43,7 +43,7 @@ const Acciones = () => {
         <button
           onClick={() => {
             ordenarProductos(ordenAscendente, "precio");
-            actualizarOrden(!ordenAscendente);
+            actualizarOrden(!ordenAscendente); // Invertir el orden al hacer clic.
           }}
         >
           Ordenar por precio
@@ -51,8 +51,8 @@ const Acciones = () => {
         <button
           onClick={() => {
             ordenarProductos(ordenAscendente, "peso");
-            actualizarOrden(!ordenAscendente);
-          }}
+            actualizarOrden(!ordenAscendente); // Invertir el orden al hacer clic.
+          }} 
         >
           Ordenar por peso
         </button>
@@ -61,31 +61,31 @@ const Acciones = () => {
           placeholder="Nombre del producto"
           id="input-nombre"
           onChange={(e) => {
-            filtrarProductosNombre(e.target.value);
+            filtrarProductosNombre(e.target.value); // Actualizar el valor del input y filtrar por nombre.
           }}
         />
         <button
           onClick={() => {
-            filtrarProductosPrecio(valorPrecio);
+            filtrarProductosPrecio(valorPrecio); // Filtrar por precio al hacer clic.
           }}
         >
           Filtrar por precio
         </button>
         <button
           onClick={() => {
-            filtrarProductosPeso(valorPeso);
+            filtrarProductosPeso(valorPeso); // Filtrar por peso al hacer clic.
           }}
         >
           Filtrar por peso
         </button>
       </div>
-      <div id="inputs" className="hide">
+      <div id="inputs" className={elementosVisible ? "" : "hide"}> {/* Si el valor de elementosVisible es true, se muestra el div, si es false, se oculta. */}
         <input
           type="number"
           placeholder="Precio del producto"
           id="input-precio"
           onChange={(e) => {
-            actualizarValorPrecio(e.target.value);
+            actualizarValorPrecio(e.target.value); // Actualizar el valor del input.
           }}
           
         />
@@ -94,7 +94,7 @@ const Acciones = () => {
           placeholder="Peso del producto"
           id="input-peso"
           onChange={(e) => {
-            actualizarValorPeso(e.target.value);
+            actualizarValorPeso(e.target.value);  // Actualizar el valor del input.
           }}
         />
       </div>

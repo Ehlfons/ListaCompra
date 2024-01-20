@@ -31,6 +31,7 @@ const Inicio = () => {
         <li>git switch consulta</li>
         <li>git switch creacion</li>
         <li>git switch actualizacion</li>
+        <li>git switch borrado</li>
       </ol>
     </Fragment>
   );

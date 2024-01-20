@@ -5,7 +5,7 @@ const CreacionPage = () => {
   return (
     <Fragment>
         <h2 id='principal-h2'>Creación de productos <em>(Añade un nuevo producto al listado)</em></h2>
-        <FormularioProductos crear={true}/>
+        <FormularioProductos crear={true}/> {/* Paramétro para cambiar la funcionalidad del formulario e indicar que el formulario será de creación. */}
     </Fragment>
   )
 }

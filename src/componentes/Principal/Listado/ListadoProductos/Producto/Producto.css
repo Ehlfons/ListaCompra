@@ -11,7 +11,7 @@ div img {
     font-size: 0.8em;
     margin: 0 20px;
     padding: 5px 0;    
-    outline: 2px solid lavender;
+    border: 2px solid lavender;
     gap: 10px;
 }
 .producto:hover {
@@ -25,6 +25,11 @@ div img {
 .trash {
     margin-left: auto;
     margin-right: 5px;
+    padding-left: 3px;
     background-color: lavender;
-    padding-left: 2px;
+    border: rgb(43, 142, 223) solid 1px;
+    
+}
+.trash:hover {
+    outline: rgb(43, 142, 223) solid 2px;
 }

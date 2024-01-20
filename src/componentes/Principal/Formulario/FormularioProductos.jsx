@@ -3,14 +3,14 @@ import useProductos from "../../../hooks/useProductos.jsx";
 import "./FormularioProductos.css";
 
 const FormularioProductos = ({crear}) => {
-  const { producto, error, cambiarDatosProducto, insertProducto, updateProducto } = useProductos();
+  const { producto, situacion, cambiarDatosProducto, insertProducto, updateProducto } = useProductos();
 
   return (
     <Fragment>
       <div id="detailsforms">
         <h2 className="formulario-h2">Información Producto</h2>
-        {error.length > 0 ? (
-          error
+        {situacion.length > 0 ? (
+          situacion
         ) : (
           <div id="formulario">
             <p>
