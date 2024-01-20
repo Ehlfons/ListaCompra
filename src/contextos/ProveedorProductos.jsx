@@ -42,7 +42,7 @@ const ProveedorProductos = ({ children }) => {
       setSituacion(`Error al obtener el listado: ${error.message}`);
     }
   };
-
+  
   // Función para filtrar el listado de Productos por nombre.
   const filtrarProductosNombre = async (nombre) => {
     try {
@@ -54,6 +54,7 @@ const ProveedorProductos = ({ children }) => {
       if (error) {
         throw error;
       }
+
       setListadoProductos(data);
     } catch (error) {
       setSituacion(`Error al filtrar por nombre: ${error.message}`);
@@ -150,7 +151,7 @@ const ProveedorProductos = ({ children }) => {
       if (error) {
         throw error;
       }
-      setProducto(data[0]);
+      setProducto(data[0]); 
     } catch (error) {
       setSituacion(error.message);
     }
@@ -207,7 +208,6 @@ const ProveedorProductos = ({ children }) => {
   };
 
   // Función para mostrar/ocultar elementos por su id (la añado al contexto por si en un futuro la necesito en otra parte de la aplicación).
-  // Sé que no es buena práctica acceder al DOM en React, pero no me sale otra forma de hacerlo y solo es para ocultar el menú de filtros.
   const toggleHideClass = (elementId) => {
     const element = document.getElementById(elementId);
     element.classList.toggle("hide");
@@ -229,7 +229,7 @@ const ProveedorProductos = ({ children }) => {
   // Efecto para obtener el listado de Productos.
   useEffect(() => {
     obtenerListadoProductos();
-  }, [listadoProductos]);
+  }, []);
 
   // Datos a exportar al contexto.
   const datosAExportar = {

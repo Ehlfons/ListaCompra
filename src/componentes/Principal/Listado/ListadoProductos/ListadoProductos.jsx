@@ -7,9 +7,11 @@ const ListadoProductos = () => {
   const { listadoProductos, situacion } = useProductos();
   return (
     <Fragment>
-      <div className="listado-productos">
+      <div
+        className="listado-productos"
+      >
         {listadoProductos.length
-          ? listadoProductos.map((producto, i, a) => (
+          ? listadoProductos.map((producto, i) => (
               <Producto key={i} datos={producto} />
             ))
           : situacion && <div className="error-message">{situacion}</div>}

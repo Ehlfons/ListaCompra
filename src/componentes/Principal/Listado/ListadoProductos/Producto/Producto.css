@@ -1,11 +1,4 @@
-#producto {
-    color: lavender;
-    font-size: 1em;
-    margin-top: 20px;
-    margin-left: 25px;
-}
-
-div.producto-imagen, img {
+div img {
     margin-left: 1%;
     width: 40px;
     height: 40px;
@@ -20,4 +13,18 @@ div.producto-imagen, img {
     padding: 5px 0;    
     outline: 2px solid lavender;
     gap: 10px;
+}
+.producto:hover {
+    background-color: lavender;
+    color: #111111;
+    outline: rgb(43, 142, 223) solid 2px;
+    transition: all 0.3s ease-in-out;
+    scale: 1.01;
+}
+
+.trash {
+    margin-left: auto;
+    margin-right: 5px;
+    background-color: lavender;
+    padding-left: 2px;
 }
