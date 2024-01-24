@@ -16,18 +16,24 @@ const ProveedorProductos = ({ children }) => {
     descripcion: "",
     imagen: "",
   };
+  const valoresInicialesLista = {
+    lista_nombre: "",
+    fecha_creacion: "",
+  };
 
   // Estados.
   const [listadoProductos, setListadoProductos] = useState(arrayInicial);
+  const [listadoListas, setListadoListas] = useState(arrayInicial);
   const [producto, setProducto] = useState(valoresInicialesProducto);
+  const [lista, setLista] = useState(valoresInicialesLista);
   const [situacion, setSituacion] = useState(cadenaInicial);
   const [error, setError] = useState(cadenaInicial);
   const [valorPeso, setValorPeso] = useState(valorInicial);
   const [valorPrecio, setValorPrecio] = useState(valorInicial);
   const [ordenAscendente, setOrdenAscendente] = useState(valorInicialBooleano); // Estado para alternar el orden ascendente/descendente de los filtros.
-  const [elementosVisible, setElementosVisible] = useState(
-    !valorInicialBooleano
-  ); // Estado para manejar la visibilidad de los elementos (filtros e inputs por ahora.)
+  const [elementosVisible, setElementosVisible] = useState(!valorInicialBooleano); // Estado para manejar la visibilidad de los elementos (filtros e inputs por ahora.)
+  const [menuProductosVisible, setMenuProductosVisible] = useState(!valorInicialBooleano); // Estado para manejar la visibilidad del SubNav de productos.
+  const [menuListasVisible, setMenuListasVisible] = useState(!valorInicialBooleano); // Estado para manejar la visibilidad del SubNav de listas.
 
   // Función para obtener el listado de Productos.
   const obtenerListadoProductos = async () => {
@@ -40,6 +46,22 @@ const ProveedorProductos = ({ children }) => {
         throw error;
       }
       setListadoProductos(data);
+    } catch (error) {
+      setSituacion(`Error al obtener el listado: ${error.message}`);
+    }
+  };
+
+  // Función para obtener el listado de Listas.
+  const obtenerListadoListas = async () => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from("lista_compra")
+        .select("*");
+
+      if (error) {
+        throw error;
+      }
+      setListadoListas(data);
     } catch (error) {
       setSituacion(`Error al obtener el listado: ${error.message}`);
     }
@@ -159,6 +181,24 @@ const ProveedorProductos = ({ children }) => {
     }
   };
 
+  //Función para obtener los datos de una lista.
+  const getLista = async (lista_id) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from("lista_compra")
+        .select("*")
+        .eq("lista_id", lista_id);
+
+      if (error) {
+        throw error;
+      }
+
+      setLista(data[0]); // Se actualiza el estado "producto" con los datos del registro, para que el formulario se rellene con los datos del producto. El data[0] es porque el resultado de la consulta es un array con un único elemento.
+    } catch (error) {
+      setSituacion(`Error al obtener los datos del producto: ${error.message}`);
+    }
+  };
+
   // Función para actualizar los datos del formulario al estado producto.
   const cambiarDatosProducto = (e) => {
     const { name, value } = e.target; // Ej: name="nombre", value="PC".
@@ -246,6 +286,14 @@ const ProveedorProductos = ({ children }) => {
   const toggleElementos = () => {
     setElementosVisible((prevVisible) => !prevVisible); // Invierte el valor del estado.
   };
+  // Función para alternar la clase "hide" de los filtros/inputs.
+  const toggleMenuProductos = () => {
+    setMenuProductosVisible((prevVisible) => !prevVisible); // Invierte el valor del estado.
+  };
+  // Función para alternar la clase "hide" de los filtros/inputs.
+  const toggleMenuListas = () => {
+    setMenuListasVisible((prevVisible) => !prevVisible); // Invierte el valor del estado.
+  };
 
   // Funciones para actualizar los estados.
   const actualizarValorPeso = (nuevoValor) => {
@@ -263,13 +311,16 @@ const ProveedorProductos = ({ children }) => {
   // Efecto para obtener el listado de Productos.
   useEffect(() => {
     obtenerListadoProductos();
+    obtenerListadoListas();
   }, []);
 
   // Datos a exportar al contexto.
   const datosAExportar = {
     listadoProductos,
+    listadoListas,
     situacion,
     obtenerListadoProductos,
+    obtenerListadoListas,
     filtrarProductosNombre,
     filtrarProductosPrecio,
     filtrarProductosPeso,
@@ -282,8 +333,14 @@ const ProveedorProductos = ({ children }) => {
     actualizarOrden,
     elementosVisible,
     toggleElementos,
+    menuProductosVisible,
+    toggleMenuProductos,
+    menuListasVisible,
+    toggleMenuListas,
     getProducto,
     producto,
+    getLista,
+    lista,
     cambiarDatosProducto,
     insertProducto,
     updateProducto,
