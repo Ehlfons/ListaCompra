@@ -3,8 +3,7 @@ import {Fragment} from 'react';
 const CreacionListasPage = () => {
   return (
     <Fragment>
-      <h1>Creacion de listas</h1>
-      
+      <h2 id='principal-h2'>Creación de listas</h2>
     </Fragment>
   )
 }

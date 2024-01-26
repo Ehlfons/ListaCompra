@@ -182,12 +182,12 @@ const ProveedorProductos = ({ children }) => {
   };
 
   //Función para obtener los datos de una lista.
-  const getLista = async (lista_id) => {
+  const getLista = async (id) => {
     try {
       const { data, error } = await supabaseConexion
         .from("lista_compra")
         .select("*")
-        .eq("lista_id", lista_id);
+        .eq("lista_id", id);
 
       if (error) {
         throw error;

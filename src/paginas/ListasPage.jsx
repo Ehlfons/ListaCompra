@@ -1,11 +1,11 @@
 import {Fragment} from 'react'
-import ListadoListas from '../componentes/Principal/ListadoListas/ListadoListas.jsx'
+import ListarListas from '../componentes/Principal/ListadoListas/ListarListas/ListarListas.jsx'
 
 const ListasPage = () => {
   return (
     <Fragment>
-      <h1>Listado de listas</h1>
-      <ListadoListas />
+      <h2 id='principal-h2'>Listado de listas</h2>
+      <ListarListas />
     </Fragment>
   )
 }
