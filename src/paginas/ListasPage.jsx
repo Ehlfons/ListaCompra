@@ -1,11 +1,16 @@
-import {Fragment} from 'react'
-import ListarListas from '../componentes/Principal/ListadoListas/ListarListas/ListarListas.jsx'
+import {Fragment} from 'react';
+import Listado from '../componentes/Principal/Listado/Listado.jsx';
+import ListarListas from '../componentes/Principal/ListadoListas/ListarListas/ListarListas.jsx';
+import CrearListas from '../modales/CrearListas.jsx';
 
 const ListasPage = () => {
   return (
     <Fragment>
-      <h2 id='principal-h2'>Listado de listas</h2>
-      <ListarListas />
+      <h2 id='principal-h2'>Listas</h2>
+      <div className='listas-productos'>
+        <ListarListas/>
+      </div>
+        <Listado/>
     </Fragment>
   )
 }

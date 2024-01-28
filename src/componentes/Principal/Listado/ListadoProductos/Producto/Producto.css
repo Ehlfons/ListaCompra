@@ -13,13 +13,7 @@ div img {
     padding: 5px 0;    
     border: 2px solid lavender;
     gap: 10px;
-}
-.producto:hover {
-    background-color: lavender;
-    color: #111111;
-    outline: rgb(43, 142, 223) solid 2px;
-    transition: all 0.3s ease-in-out;
-    scale: 1.01;
+    cursor: pointer;
 }
 
 .trash {
@@ -28,7 +22,6 @@ div img {
     padding-left: 3px;
     background-color: lavender;
     border: rgb(43, 142, 223) solid 1px;
-    
 }
 .trash:hover {
     outline: rgb(43, 142, 223) solid 2px;

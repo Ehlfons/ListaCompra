@@ -6,7 +6,6 @@ import ListaCompraPage from "../../paginas/ListaCompraPage.jsx";
 import CreacionPage from "../../paginas/CreacionPage.jsx";
 import EdicionPage from "../../paginas/EdicionPage.jsx";
 import ListasPage from "../../paginas/ListasPage.jsx";
-import CreacionListasPage from "../../paginas/CreacionListasPage.jsx";
 
 const Rutas = () => {
   return (
@@ -17,7 +16,6 @@ const Rutas = () => {
         <Route path='/Creacion' element={<CreacionPage />} />
         <Route path='/Edicion' element={<EdicionPage />} />        
         <Route path='/Listas' element={<ListasPage />}/>
-        <Route path='/CreacionListas' element={<CreacionListasPage />} />
         <Route path='*' element={<Error />} />
       </Routes>
     </Fragment>

@@ -1,13 +1,13 @@
-import useProductos from "../hooks/useProductos";
+import useListas from "../hooks/useListas.jsx";
 import "./Modales.css";
 
-function DeleteModal({ mostrar, manejarCerrado, idProducto }) { 
-  const { deleteProducto } = useProductos(); // Importado desde el contexto a través del hook useProductos.
+function DeleteProductoModal({ mostrar, manejarCerrado, idProducto, idListaActual }) { 
+  const { deleteProductoLista } = useListas(); // Importado desde el contexto a través del hook useProductos.
 
   // Función para manejar el borrado del producto.
   const manejarBorrado = () => {
-    // Llama a la función deleteProducto con el ID del producto.
-    deleteProducto(idProducto);
+    // Llama a la función deleteProducto con el ID del producto y el ID de la lista.
+    deleteProductoLista(idProducto, idListaActual);
     
     // Cierra el modal después de eliminar el producto.
     manejarCerrado();
@@ -25,7 +25,7 @@ function DeleteModal({ mostrar, manejarCerrado, idProducto }) {
               </span>
             </div>
             <div className="modal-body">
-              <p>¿Seguro qué quieres eliminar el producto?</p>
+              <p>¿Quieres eliminar el producto de la lista?</p>
             </div>
             <div className="modal-footer">
               <button className="btn btn-cancelar" onClick={manejarCerrado}> {/* Al hacer clic en el botón cancelar, se cierra el modal. */}
@@ -36,10 +36,10 @@ function DeleteModal({ mostrar, manejarCerrado, idProducto }) {
               </button>
             </div>
           </div>
-        </div>
+        </div>        
       )}
     </>
   );
 }
 
-export default DeleteModal;
+export default DeleteProductoModal;

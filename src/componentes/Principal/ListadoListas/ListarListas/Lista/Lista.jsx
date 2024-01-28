@@ -1,10 +1,10 @@
 import { Fragment, useState } from "react";
-import DeleteModal from "../../../../../modales/DeleteModal.jsx";
+import DeleteListaModal from "../../../../../modales/DeleteListaModal.jsx";
 import "./Lista.css";
 
 // Estructura de cada Lista.
 const Lista = (props) => {
-  const { lista_id, lista_nombre, fecha_creacion } = props.datos; // Datos del producto.
+  const { lista_id, lista_nombre } = props.datos; // Datos del producto.
 
   // Valor inicial del modal de confirmación.
   const valorInicialModal = false;
@@ -26,7 +26,7 @@ const Lista = (props) => {
     <Fragment>
       <article className="lista" id={lista_id}>
         <p>
-          <strong>{lista_nombre}</strong> - Creada el: {fecha_creacion}
+          <strong>{lista_nombre}</strong>
         </p>
         <img
           src="src/assets/trash.svg"
@@ -37,10 +37,10 @@ const Lista = (props) => {
       </article>
 
       {/* Modal de confirmación para eliminar el producto. */}
-      <DeleteModal
+      <DeleteListaModal
         mostrar={mostrarModal} // Se le pasa el estado del modal, si es true se muestra, si es false se oculta.
         manejarCerrado={cerrarModal} // Se le pasa la función para cerrar el modal.
-        idProducto={lista_id} // Se le pasa el ID del producto.
+        lista_id={lista_id} // Se le pasa el ID del producto.
       />
     </Fragment>
   );
