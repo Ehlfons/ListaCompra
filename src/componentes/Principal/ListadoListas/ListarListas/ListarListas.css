@@ -1,3 +1,22 @@
 .listado-listas {
-  margin-bottom: 20px;
+  margin: 0 5px 20px 5px;
+}
+
+.listado-productos-listas {
+  padding: 20px 0;
+  border: 2px solid lavender;
+  margin: 5px;
+}
+
+.null {
+  margin-left: 20px;
+  color: rgb(253, 85, 85);
+}
+
+.nombre-lista {
+  margin-left: 20px;
+  margin-top: 10px;
+  font-size: 1.3em;
+  font-weight: bold;
+  padding-bottom: 20px;
 }

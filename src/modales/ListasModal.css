@@ -1,0 +1,7 @@
+#modal-footer-listas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    margin-top: 1rem;
+}

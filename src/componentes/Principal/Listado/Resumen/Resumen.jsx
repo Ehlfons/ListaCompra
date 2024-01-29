@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import useProductos from "../../../../hooks/useProductos";
 import "./Resumen.css";
 

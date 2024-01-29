@@ -8,7 +8,7 @@ const Lista = (props) => {
 
   // Valor inicial del modal de confirmación.
   const valorInicialModal = false;
-  
+
   // Nuevo estado para controlar el modal de confirmación.
   const [mostrarModal, setMostrarModal] = useState(valorInicialModal);
 
@@ -24,7 +24,10 @@ const Lista = (props) => {
 
   return (
     <Fragment>
-      <article className="lista" id={lista_id}>
+      <article
+        className={`lista ${props.isSelected ? "selected" : ""}`}
+        id={lista_id}
+      >
         <p>
           <strong>{lista_nombre}</strong>
         </p>

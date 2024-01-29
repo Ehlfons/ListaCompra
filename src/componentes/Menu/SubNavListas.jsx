@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
-import useProductos from "../../hooks/useProductos";
-import CrearListas from "../../modales/CrearListas";
+import useProductos from "../../hooks/useProductos.jsx";
+import CrearListasModal from "../../modales/CrearListasModal.jsx";
 import "./Menu.css";
 
 const SubNavListas = () => {
@@ -28,7 +28,7 @@ const SubNavListas = () => {
         </nav>
       </div>
 
-      <CrearListas mostrar={crearListasVisible} manejarCerrado={cerrarCrearListas} />
+      <CrearListasModal mostrar={crearListasVisible} manejarCerrado={cerrarCrearListas} />
     </Fragment>
   );
 };

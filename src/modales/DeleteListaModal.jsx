@@ -2,7 +2,7 @@ import useListas from "../hooks/useListas";
 import "./Modales.css";
 
 function DeleteListaModal({ mostrar, manejarCerrado, lista_id }) {
-  const { deleteLista, productosLista } = useListas(); // Importado desde el contexto a través del hook useListas.
+  const { deleteLista, productosLista, actualizarIdListaActual } = useListas(); // Importado desde el contexto a través del hook useListas.
 
   // Función para manejar el borrado de la lista.
   const manejarBorrado = () => {
@@ -39,6 +39,7 @@ function DeleteListaModal({ mostrar, manejarCerrado, lista_id }) {
                 onClick={(e) => {
                   manejarBorrado(e);
                   productosLista.length = 0; { /* Al eliminar la lista, se vacía el array de productos para que no se sigan mostrando. */}
+                  actualizarIdListaActual("");
                 }}
               >
                 {" "}

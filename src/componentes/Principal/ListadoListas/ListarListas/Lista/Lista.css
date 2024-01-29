@@ -4,8 +4,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem;
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #ccc;
+    border-bottom: 1px solid lavender;
+    border-top: 1px solid lavender;
     cursor: pointer;
+}
+
+.selected {
+    background-color: lavender;
+    color: #222;
 }
 

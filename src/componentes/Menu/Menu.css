@@ -17,6 +17,7 @@
 #menu ul li {
     display: inline;
     margin: 0 10px;
+    cursor: pointer;
 }
 
 #menu ul li a {
@@ -32,4 +33,3 @@
     outline: 2px solid green;
     transition: all 0.3s ease-in-out;
 }
-

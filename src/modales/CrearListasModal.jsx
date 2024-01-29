@@ -3,7 +3,7 @@ import useListas from "../hooks/useListas.jsx";
 import "./Modales.css";
 
 const CrearListasModal = ({ mostrar, manejarCerrado }) => {
-  const { lista, createLista, insertLista } = useListas();
+  const { lista, createLista, insertLista, actualizarIdListaActual } = useListas();
   return (
     <Fragment>
       {mostrar && (
@@ -36,6 +36,7 @@ const CrearListasModal = ({ mostrar, manejarCerrado }) => {
                 onClick={() => {
                   insertLista();
                   manejarCerrado();
+                  actualizarIdListaActual("");
                 }}
               >
                 Crear lista

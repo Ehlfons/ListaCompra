@@ -1,7 +1,6 @@
 import {Fragment} from 'react';
 import Listado from '../componentes/Principal/Listado/Listado.jsx';
 import ListarListas from '../componentes/Principal/ListadoListas/ListarListas/ListarListas.jsx';
-import CrearListas from '../modales/CrearListas.jsx';
 
 const ListasPage = () => {
   return (
