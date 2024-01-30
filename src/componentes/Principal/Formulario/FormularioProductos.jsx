@@ -1,9 +1,20 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import useProductos from "../../../hooks/useProductos.jsx";
 import "./FormularioProductos.css";
 
 const FormularioProductos = ({crear}) => {
-  const { producto, situacion, cambiarDatosProducto, insertProducto, updateProducto } = useProductos();
+  const { producto, situacion, cambiarDatosProducto, insertProducto, updateProducto, validarFormulario, erroresFormulario, actualizarErroresFormulario } = useProductos();
+
+  // Manejador del evento clic del botón Crear Producto.
+  const manejarClick = (e) => {
+    const { esValido, errores } = validarFormulario(producto); // Validar el formulario.
+
+    if (esValido) {
+      crear ? insertProducto(e) : updateProducto(e);
+    } else {
+      actualizarErroresFormulario(errores); // Actualizar el estado de los errores.
+    }
+  };
 
   return (
     <Fragment>
@@ -21,8 +32,14 @@ const FormularioProductos = ({crear}) => {
                 value={producto.nombre || ""}
                 onChange={(e) => {
                   cambiarDatosProducto(e);
+                  // Limpiar el error al cambiar el contenido del campo.
+                  actualizarErroresFormulario((prevErrores) => ({
+                    ...prevErrores,
+                    nombre: undefined,
+                  }));
                 }}
               />
+              {erroresFormulario.nombre ? <small>{erroresFormulario.nombre}</small> : null}
             </p>
             <p>
               <label htmlFor="precio">Precio: </label>
@@ -33,8 +50,14 @@ const FormularioProductos = ({crear}) => {
                 value={producto.precio || ""}
                 onChange={(e) => {
                   cambiarDatosProducto(e);
+                  // Limpiar el error al cambiar el contenido del campo.
+                  actualizarErroresFormulario((prevErrores) => ({
+                    ...prevErrores,
+                    precio: undefined,
+                  }));
                 }}
               />
+              {erroresFormulario.precio ? <small>{erroresFormulario.precio}</small> : null}
             </p>
             <p>
               <label htmlFor="peso">Peso: </label>
@@ -45,8 +68,14 @@ const FormularioProductos = ({crear}) => {
                 value={producto.peso || ""}
                 onChange={(e) => {
                   cambiarDatosProducto(e);
+                  // Limpiar el error al cambiar el contenido del campo.
+                  actualizarErroresFormulario((prevErrores) => ({
+                    ...prevErrores,
+                    peso: undefined,
+                  }));
                 }}
               />
+              {erroresFormulario.peso ? <small>{erroresFormulario.peso}</small> : null}
             </p>
             <p>
               <label htmlFor="descripcion">Descripción: </label>
@@ -74,7 +103,7 @@ const FormularioProductos = ({crear}) => {
               <button
                 className="crear-producto"
                 onClick={(e) => {
-                  crear ? insertProducto(e) : updateProducto(e);
+                  manejarClick(e);
                 }}
               >
                 {crear ? "Crear Producto" : "Actualizar Producto"}

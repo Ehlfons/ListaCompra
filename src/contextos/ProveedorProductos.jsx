@@ -9,6 +9,7 @@ const ProveedorProductos = ({ children }) => {
   const cadenaInicial = "";
   const valorInicial = 0;
   const valorInicialBooleano = true;
+  const valorInicialFormulario = {};
   const valoresInicialesProducto = {
     nombre: "",
     precio: "",
@@ -31,9 +32,18 @@ const ProveedorProductos = ({ children }) => {
   const [valorPeso, setValorPeso] = useState(valorInicial);
   const [valorPrecio, setValorPrecio] = useState(valorInicial);
   const [ordenAscendente, setOrdenAscendente] = useState(valorInicialBooleano); // Estado para alternar el orden ascendente/descendente de los filtros.
-  const [elementosVisible, setElementosVisible] = useState(!valorInicialBooleano); // Estado para manejar la visibilidad de los elementos (filtros e inputs por ahora.)
-  const [menuProductosVisible, setMenuProductosVisible] = useState(!valorInicialBooleano); // Estado para manejar la visibilidad del SubNav de productos.
-  const [menuListasVisible, setMenuListasVisible] = useState(!valorInicialBooleano); // Estado para manejar la visibilidad del SubNav de listas.
+  const [elementosVisible, setElementosVisible] = useState(
+    !valorInicialBooleano
+  ); // Estado para manejar la visibilidad de los elementos (filtros e inputs por ahora.)
+  const [menuProductosVisible, setMenuProductosVisible] = useState(
+    !valorInicialBooleano
+  ); // Estado para manejar la visibilidad del SubNav de productos.
+  const [menuListasVisible, setMenuListasVisible] = useState(
+    !valorInicialBooleano
+  ); // Estado para manejar la visibilidad del SubNav de listas.
+  const [erroresFormulario, setErroresFormulario] = useState(
+    valorInicialFormulario
+  );
 
   // Función para obtener el listado de Productos.
   const obtenerListadoProductos = async () => {
@@ -261,6 +271,13 @@ const ProveedorProductos = ({ children }) => {
   // Función para eliminar un producto.
   const deleteProducto = async (id) => {
     try {
+      // Eliminar el producto de la tabla de relaciones, por lo tanto de las listas.
+      await supabaseConexion
+        .from("productos_lista_compra")
+        .delete()
+        .eq("producto_id", id);
+
+      // Eliminar el producto de la tabla de productos.
       const { error } = await supabaseConexion
         .from("productos")
         .delete()
@@ -280,6 +297,30 @@ const ProveedorProductos = ({ children }) => {
     } catch (error) {
       setSituacion(`Error al eliminar el producto: ${error.message}`);
     }
+  };
+
+  // Función para validar el formulario.
+  const validarFormulario = (producto) => {
+    const errores = {}; // Objeto para almacenar los errores.
+
+    // Validar el nombre del producto.
+    if (!producto.nombre || producto.nombre.trim() === "") {
+      errores.nombre = "El nombre del producto es obligatorio.";
+    }
+
+    // Validar el precio del producto.
+    if (isNaN(producto.precio) || producto.precio <= 0) {
+      errores.precio = "Ingrese un precio válido.";
+    }
+
+    // Validar el peso del producto.
+    if (isNaN(producto.peso) || producto.peso <= 0) {
+      errores.peso = "Ingrese un peso válido.";
+    }
+
+    const esValido = Object.keys(errores).length === 0; // Si el objeto "errores" está vacío, es porque no hay errores.
+
+    return { esValido, errores };
   };
 
   // Función para alternar la clase "hide" de los filtros/inputs.
@@ -306,6 +347,10 @@ const ProveedorProductos = ({ children }) => {
 
   const actualizarOrden = (nuevoValor) => {
     setOrdenAscendente(nuevoValor);
+  };
+
+  const actualizarErroresFormulario = (nuevoValor) => {
+    setErroresFormulario(nuevoValor);
   };
 
   // Efecto para obtener el listado de Productos.
@@ -346,6 +391,9 @@ const ProveedorProductos = ({ children }) => {
     updateProducto,
     deleteProducto,
     error,
+    validarFormulario,
+    erroresFormulario,
+    actualizarErroresFormulario,
   };
 
   return (

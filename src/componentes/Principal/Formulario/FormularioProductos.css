@@ -58,3 +58,8 @@ label {
   border: 2px solid lavender;
   padding-bottom: 20px;
 }
+
+#formulario small {
+  color: rgb(255, 78, 78);
+  font-size: 0.8em;
+}

@@ -3,7 +3,20 @@ import useListas from "../hooks/useListas.jsx";
 import "./Modales.css";
 
 const CrearListasModal = ({ mostrar, manejarCerrado }) => {
-  const { lista, createLista, insertLista, actualizarIdListaActual } = useListas();
+  const { lista, createLista, insertLista, actualizarIdListaActual, erroresLista, actualizarErroresLista, validarFormulario } = useListas();
+  
+  const manejarClick = (e) => {
+    const { esValido, errores } = validarFormulario(lista); // Validar el formulario.
+
+    if (esValido) {
+      insertLista();
+      manejarCerrado();
+      actualizarIdListaActual("");
+    } else {
+      actualizarErroresLista(errores); // Actualizar el estado de los errores.
+    }
+  };
+
   return (
     <Fragment>
       {mostrar && (
@@ -21,11 +34,17 @@ const CrearListasModal = ({ mostrar, manejarCerrado }) => {
                 name="nombre"
                 placeholder="Nombre de la lista"
                 id="input-nombre-lista"
-                value={lista.lista_nombre || ""}
+                value={lista.lista_nombre}
                 onChange={(e) => {
                   createLista(e.target.value);
+                  // Limpiar el error al cambiar el contenido del campo.
+                  actualizarErroresLista((prevErrores) => ({
+                    ...prevErrores,
+                    lista_nombre: null,
+                  }));
                 }}
               />
+              {erroresLista.lista_nombre ? <small>{erroresLista.lista_nombre}</small> : null}
             </div>
             <div className="modal-footer">
               <button className="btn btn-cancelar" onClick={manejarCerrado}>
@@ -33,10 +52,8 @@ const CrearListasModal = ({ mostrar, manejarCerrado }) => {
               </button>
               <button
                 className="btn btn-confirmar"
-                onClick={() => {
-                  insertLista();
-                  manejarCerrado();
-                  actualizarIdListaActual("");
+                onClick={(e) => {
+                  manejarClick(e);
                 }}
               >
                 Crear lista

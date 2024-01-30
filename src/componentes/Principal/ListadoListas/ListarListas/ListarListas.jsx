@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import useListas from "../../../../hooks/useListas.jsx";
 import Lista from "./Lista/Lista.jsx";
 import Producto from "../../Listado/ListadoProductos/Producto/Producto.jsx";
@@ -22,7 +22,7 @@ const ListarListas = () => {
       >
         {listadoListas.length
           ? listadoListas.map((lista, i) => <Lista key={i} datos={lista} isSelected={lista.lista_id === idListaActual}/>) // Se muestra el listado de Listas.
-          : situacion && <div className="error-message">{situacion}</div>}
+          : <div className="error-message">{situacion}</div>}
       </div>
       {idListaActual && <div className="listado-productos-listas">
         {productosLista.length

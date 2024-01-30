@@ -8,7 +8,7 @@ const ProveedorListas = ({ children }) => {
   const arrayInicial = [];
   const cadenaInicial = "";
   const valoresInicialesLista = {
-    lista_nombre: "",
+    lista_nombre: null,
   };
 
   // Estados.
@@ -16,7 +16,8 @@ const ProveedorListas = ({ children }) => {
   const [lista, setLista] = useState(valoresInicialesLista); // Estado para guardar los datos de la lista.
   const [idListaActual, setIdListaActual] = useState(cadenaInicial); // Estado para guardar el ID de la lista actual.
   const [situacion, setSituacion] = useState(cadenaInicial);
-  const [productosLista, setProductosLista] = useState(arrayInicial);
+  const [productosLista, setProductosLista] = useState(arrayInicial); // Estado para guardar los productos de la lista.
+  const [erroresLista, setErroresLista] = useState(arrayInicial); // Estado para guardar los errores de la creación de la lista.
 
   // Función para obtener el listado de Listas.
   const obtenerListadoListas = async () => {
@@ -39,7 +40,8 @@ const ProveedorListas = ({ children }) => {
     try {
       const { data, error } = await supabaseConexion
         .from("productos_lista_compra")
-        .select( // Se obtienen los productos de la lista con el id indicado, y la cantidad de cada producto.
+        .select(
+          // Se obtienen los productos de la lista con el id indicado, y la cantidad de cada producto.
           `
           cantidad, 
           productos (
@@ -138,13 +140,41 @@ const ProveedorListas = ({ children }) => {
     }
   };
 
+  // Función para verificar si el producto ya está en la lista.
+  const verificarProductoEnLista = async (producto_id, lista_id) => {
+    try {
+      const { data, error } = await supabaseConexion
+        .from("productos_lista_compra")
+        .select()
+        .eq("producto_id", producto_id)
+        .eq("lista_id", lista_id);
+
+      if (error) {
+        throw error;
+      }
+
+      // Si hay datos, significa que el producto ya está en la lista.
+      if (data && data.length > 0) {
+        setSituacion("El producto ya está en la lista.");
+      }
+    } catch (error) {
+      setSituacion(
+        `Error al verificar el producto en la lista: ${error.message}`
+      );
+    }
+  };
+
   // Función para insertar el producto en la lista.
   const insertProductoLista = async (producto_id, lista_id) => {
     try {
+      // Verificar si el producto ya está en la lista.
+      await verificarProductoEnLista(producto_id, lista_id);
+
+      // Insertar el producto en la lista.
       const { error } = await supabaseConexion
         .from("productos_lista_compra")
         .insert({
-          lista_id, 
+          lista_id,
           producto_id,
           cantidad: 1,
         });
@@ -160,9 +190,23 @@ const ProveedorListas = ({ children }) => {
     }
   };
 
+  // Función para validar el formulario.
+  const validarFormulario = (lista) => {
+    const errores = {}; // Objeto para almacenar los errores.
+
+    // Validar el nombre de la lista.
+    if (!lista.lista_nombre || lista.lista_nombre.trim() === "") {
+      errores.lista_nombre = "El nombre de la lista es obligatorio.";
+    }
+
+    const esValido = Object.keys(errores).length === 0; // Si el objeto "errores" está vacío, es porque no hay errores.
+
+    return { esValido, errores };
+  };
+
   // Función para actualizar el nombre de la lista.
   const createLista = (nuevoValor) => {
-    setLista({ 
+    setLista({
       ...lista,
       lista_nombre: nuevoValor, // Se actualiza el nombre de la lista.
     });
@@ -172,6 +216,11 @@ const ProveedorListas = ({ children }) => {
   const actualizarIdListaActual = (nuevoValor) => {
     setIdListaActual(nuevoValor);
   };
+
+  // Función para actualizar los errores de la lista.
+  const actualizarErroresLista = (nuevoValor) => {
+    setErroresLista(nuevoValor);
+  }
 
   // Efecto para obtener el listado de Listas.
   useEffect(() => {
@@ -193,6 +242,9 @@ const ProveedorListas = ({ children }) => {
     createLista,
     actualizarIdListaActual,
     idListaActual,
+    erroresLista,
+    actualizarErroresLista,    
+    validarFormulario,
   };
 
   return (

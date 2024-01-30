@@ -25,7 +25,7 @@ const Resumen = () => {
     <div className="resumen">
       <h3>Resumen</h3>
       <p>Número de productos: {numeroDeProductos}</p>
-      <p>Peso total de la lista: {pesoTotal}kg{pesoTotal>15 ? " - Es recomendable recogerlo en coche." : ""}</p>
+      <p>Peso total de la lista: {pesoTotal.toFixed(2)}kg{pesoTotal>15 ? " - Es recomendable recogerlo en coche." : ""}</p>
       <p>Precio total: {precioTotal.toFixed(2)}€</p>
     </div>
   );
