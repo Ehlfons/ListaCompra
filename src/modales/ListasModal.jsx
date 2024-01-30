@@ -1,5 +1,6 @@
 import useListas from "../hooks/useListas";
 import "./Modales.css";
+import "./ListasModal.css";
 
 function ListasModal({ mostrarListas, manejarCerradoListas, idProducto }) {
   const { listadoListas, insertProductoLista, actualizarIdListaActual } = useListas(); // Importado desde el contexto a través del hook useProductos.
@@ -29,7 +30,7 @@ function ListasModal({ mostrarListas, manejarCerradoListas, idProducto }) {
                 {/* Al hacer clic en el botón cancelar, se cierra el modal. */}
                 Cancelar
               </button>
-              <div>
+              <div className="listas-modal">
                 {listadoListas.map((lista, i) => (
                   <button
                     className="btn btn-confirmar"
