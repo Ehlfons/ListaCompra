@@ -1,9 +1,11 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import useProductos from "../../../hooks/useProductos.jsx";
+import useListas from "../../../hooks/useListas.jsx";
 import "./FormularioProductos.css";
 
 const FormularioProductos = ({crear}) => {
   const { producto, situacion, cambiarDatosProducto, insertProducto, updateProducto, validarFormulario, erroresFormulario, actualizarErroresFormulario } = useProductos();
+  const { actualizarIdListaActual } = useListas();
 
   // Manejador del evento clic del botón Crear Producto.
   const manejarClick = (e) => {
@@ -11,6 +13,7 @@ const FormularioProductos = ({crear}) => {
 
     if (esValido) {
       crear ? insertProducto(e) : updateProducto(e);
+      actualizarIdListaActual(""); // Actualizar el ID de la lista actual.
     } else {
       actualizarErroresFormulario(errores); // Actualizar el estado de los errores.
     }

@@ -17,18 +17,11 @@ const ProveedorProductos = ({ children }) => {
     descripcion: "",
     imagen: "",
   };
-  const valoresInicialesLista = {
-    lista_nombre: "",
-    fecha_creacion: "",
-  };
 
   // Estados.
   const [listadoProductos, setListadoProductos] = useState(arrayInicial);
-  const [listadoListas, setListadoListas] = useState(arrayInicial);
   const [producto, setProducto] = useState(valoresInicialesProducto);
-  const [lista, setLista] = useState(valoresInicialesLista);
   const [situacion, setSituacion] = useState(cadenaInicial);
-  const [error, setError] = useState(cadenaInicial);
   const [valorPeso, setValorPeso] = useState(valorInicial);
   const [valorPrecio, setValorPrecio] = useState(valorInicial);
   const [ordenAscendente, setOrdenAscendente] = useState(valorInicialBooleano); // Estado para alternar el orden ascendente/descendente de los filtros.
@@ -56,22 +49,6 @@ const ProveedorProductos = ({ children }) => {
         throw error;
       }
       setListadoProductos(data);
-    } catch (error) {
-      setSituacion(`Error al obtener el listado: ${error.message}`);
-    }
-  };
-
-  // Función para obtener el listado de Listas.
-  const obtenerListadoListas = async () => {
-    try {
-      const { data, error } = await supabaseConexion
-        .from("lista_compra")
-        .select("*");
-
-      if (error) {
-        throw error;
-      }
-      setListadoListas(data);
     } catch (error) {
       setSituacion(`Error al obtener el listado: ${error.message}`);
     }
@@ -191,23 +168,6 @@ const ProveedorProductos = ({ children }) => {
     }
   };
 
-  //Función para obtener los datos de una lista.
-  const getLista = async (id) => {
-    try {
-      const { data, error } = await supabaseConexion
-        .from("lista_compra")
-        .select("*")
-        .eq("lista_id", id);
-
-      if (error) {
-        throw error;
-      }
-
-      setLista(data[0]); // Se actualiza el estado "producto" con los datos del registro, para que el formulario se rellene con los datos del producto. El data[0] es porque el resultado de la consulta es un array con un único elemento.
-    } catch (error) {
-      setSituacion(`Error al obtener los datos del producto: ${error.message}`);
-    }
-  };
 
   // Función para actualizar los datos del formulario al estado producto.
   const cambiarDatosProducto = (e) => {
@@ -349,16 +309,13 @@ const ProveedorProductos = ({ children }) => {
   // Efecto para obtener el listado de Productos.
   useEffect(() => {
     obtenerListadoProductos();
-    obtenerListadoListas();
   }, []);
 
   // Datos a exportar al contexto.
   const datosAExportar = {
     listadoProductos,
-    listadoListas,
     situacion,
     obtenerListadoProductos,
-    obtenerListadoListas,
     filtrarProductosNombre,
     filtrarProductosPrecio,
     filtrarProductosPeso,
@@ -377,13 +334,10 @@ const ProveedorProductos = ({ children }) => {
     toggleMenuListas,
     getProducto,
     producto,
-    getLista,
-    lista,
     cambiarDatosProducto,
     insertProducto,
     updateProducto,
     deleteProducto,
-    error,
     validarFormulario,
     erroresFormulario,
     actualizarErroresFormulario,

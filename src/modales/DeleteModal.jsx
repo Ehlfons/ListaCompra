@@ -1,13 +1,16 @@
 import useProductos from "../hooks/useProductos";
+import useListas from "../hooks/useListas";
 import "./Modales.css";
 
 function DeleteModal({ mostrar, manejarCerrado, idProducto }) { 
   const { deleteProducto } = useProductos(); // Importado desde el contexto a través del hook useProductos.
+  const { actualizarIdListaActual } = useListas(); // Importado desde el contexto a través del hook useListas.
 
   // Función para manejar el borrado del producto.
   const manejarBorrado = () => {
     // Llama a la función deleteProducto con el ID del producto.
     deleteProducto(idProducto);
+    actualizarIdListaActual(""); // Actualiza el ID de la lista actual para cerrar la información de las listas y que se vuelva a cargar al hacer clic.
     
     // Cierra el modal después de eliminar el producto.
     manejarCerrado();

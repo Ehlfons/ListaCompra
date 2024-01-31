@@ -8,7 +8,7 @@ import useListas from "../../../../../hooks/useListas.jsx";
 // Estructura de cada Producto.
 const Producto = (props) => {
   const { id, nombre, peso, precio, imagen, descripcion } = props.datos; // Datos del producto.
-  const { idListaActual, productosLista } = useListas(); // Importado desde el contexto a través del hook useProductos.
+  const { idListaActual } = useListas(); // Importado desde el contexto a través del hook useProductos.
 
   // Valor inicial del modal de confirmación.
   const valorInicialModal = false;
@@ -22,7 +22,7 @@ const Producto = (props) => {
     setMostrarModal(true);
   };
 
-  // Función para abrir el modal de confirmación.
+  // Función para abrir el modal de confirmación de listas.
   const abrirModalListas = () => {
     setMostrarModalListas(true);
   };
@@ -32,7 +32,7 @@ const Producto = (props) => {
     setMostrarModal(false);
   };
 
-  // Función para cerrar el modal de confirmación.
+  // Función para cerrar el modal de confirmación de listas.
   const cerrarModalListas = () => {
     setMostrarModalListas(false);
   };
@@ -40,10 +40,10 @@ const Producto = (props) => {
   return (
     <Fragment>
       <article className="producto" id={id}>
-        <img src={imagen} alt={nombre} />
+        <img src={imagen ? imagen : "https://www.drmarket.com.mx/Archivos/Anuncios/sinImagenDefault.jpg"} alt={nombre} />
         <p>
-          <strong>{nombre}</strong> - Peso: {peso}kg - Precio: {precio}€ -{" "}
-          {descripcion} {props.onLista && `- Cantidad: ${props.cantidad}`}{" "}
+          <strong>{nombre}</strong> - Peso: {peso}kg - Precio: {precio}€ - {" "}
+          {descripcion ? descripcion : "Sin descripción"} {props.onLista && `- Cantidad: ${props.cantidad}`}{" "}
           {/* Si el producto está en la lista, se muestra la cantidad. */}
         </p>
         {props.onLista ? null : (

@@ -1,13 +1,10 @@
 import useListas from "../hooks/useListas";
-import useProductos from "../hooks/useProductos";
 import "./Modales.css";
 import "./ListasModal.css";
 
 function ListasModal({ mostrarListas, manejarCerradoListas, idProducto }) {
-  const { listadoListas, insertProductoLista, actualizarIdListaActual, cantidad, actualizarCantidad } =
+  const { listadoListas, insertProductoListaCantidad, actualizarIdListaActual, cantidad, actualizarCantidad } =
     useListas(); // Importado desde el contexto a través del hook useProductos.
-
-  const { producto } = useProductos();
 
   return (
     <>
@@ -26,22 +23,18 @@ function ListasModal({ mostrarListas, manejarCerradoListas, idProducto }) {
               <p>Selecciona la lista a la que quieras añadir el producto.</p>
             </div>
             <div className="modal-footer" id="modal-footer-listas">
-              {/* <button
-                className="btn btn-cancelar"
-                onClick={manejarCerradoListas}
-              >
-                Cancelar
-              </button> */}
-              <label htmlFor="cantidad">Cantidad: </label>
-              <input
-                type="number"
-                name="cantidad"
-                min={1}
-                value={cantidad || ""}
-                onChange={(e) => {
-                  actualizarCantidad(e.target.value);
-                }}
-              />
+              <div className="input-cantidad">
+                <label htmlFor="cantidad">Cantidad: </label>
+                <input
+                  type="number"
+                  name="cantidad"
+                  min={1}
+                  value={cantidad || "1"}
+                  onChange={(e) => {
+                    actualizarCantidad(e.target.value);
+                  }}
+                />
+              </div>
               <div className="listas-modal">
                 {listadoListas.map((lista, i) => (
                   <button
@@ -49,8 +42,9 @@ function ListasModal({ mostrarListas, manejarCerradoListas, idProducto }) {
                     id={lista.lista_id}
                     key={i}
                     onClick={(e) => {
-                      insertProductoLista(idProducto, e.target.id);
+                      insertProductoListaCantidad(idProducto, e.target.id, cantidad);
                       actualizarIdListaActual(e.target.id); // Se actualiza el ID de la lista actual para cambiar la referencia.
+                      actualizarCantidad(1); // Se reinicia el valor de la cantidad.
                       manejarCerradoListas();
                     }}
                   >

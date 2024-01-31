@@ -11,3 +11,7 @@
     display: flex;
     gap: 5px;
 }
+
+#modal-footer-listas label {
+    color: #222;
+}

@@ -181,7 +181,7 @@ const ProveedorListas = ({ children }) => {
         getProductosLista(lista_id);
 
         if (data && data.length > 0) {
-          const newCantidad = data[0].cantidad + cantidad;
+          const newCantidad = parseFloat(data[0].cantidad) + parseFloat(cantidad);
           await supabaseConexion
             .from("productos_lista_compra")
             .update({ cantidad: newCantidad })
@@ -192,32 +192,6 @@ const ProveedorListas = ({ children }) => {
             .insert({ lista_id, producto_id, cantidad });
         }
       }
-      // Actualizar los productos de la lista con los nuevos cambios.
-      getProductosLista(lista_id);
-    } catch (error) {
-      setSituacion(`Error al crear la lista: ${error.message}`);
-    }
-  };
-
-  // Función para insertar el producto en la lista.
-  const insertProductoLista = async (producto_id, lista_id) => {
-    try {
-      // Verificar si el producto ya está en la lista.
-      await verificarProductoEnLista(producto_id, lista_id);
-
-      // Insertar el producto en la lista.
-      const { error } = await supabaseConexion
-        .from("productos_lista_compra")
-        .insert({
-          lista_id,
-          producto_id,
-          cantidad: 1,
-        });
-
-      if (error) {
-        throw error;
-      }
-
       // Actualizar los productos de la lista con los nuevos cambios.
       getProductosLista(lista_id);
     } catch (error) {
@@ -278,7 +252,6 @@ const ProveedorListas = ({ children }) => {
     deleteLista,
     deleteProductoLista,
     insertLista,
-    insertProductoLista,
     createLista,
     actualizarIdListaActual,
     idListaActual,
@@ -287,6 +260,7 @@ const ProveedorListas = ({ children }) => {
     validarFormulario,
     cantidad,
     actualizarCantidad,
+    insertProductoListaCantidad,
   };
 
   return (
