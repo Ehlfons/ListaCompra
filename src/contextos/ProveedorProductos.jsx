@@ -271,13 +271,6 @@ const ProveedorProductos = ({ children }) => {
   // Función para eliminar un producto.
   const deleteProducto = async (id) => {
     try {
-      // Eliminar el producto de la tabla de relaciones, por lo tanto de las listas.
-      await supabaseConexion
-        .from("productos_lista_compra")
-        .delete()
-        .eq("producto_id", id);
-
-      // Eliminar el producto de la tabla de productos.
       const { error } = await supabaseConexion
         .from("productos")
         .delete()

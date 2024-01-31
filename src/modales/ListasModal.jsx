@@ -1,9 +1,13 @@
 import useListas from "../hooks/useListas";
+import useProductos from "../hooks/useProductos";
 import "./Modales.css";
 import "./ListasModal.css";
 
 function ListasModal({ mostrarListas, manejarCerradoListas, idProducto }) {
-  const { listadoListas, insertProductoLista, actualizarIdListaActual } = useListas(); // Importado desde el contexto a través del hook useProductos.
+  const { listadoListas, insertProductoLista, actualizarIdListaActual, cantidad, actualizarCantidad } =
+    useListas(); // Importado desde el contexto a través del hook useProductos.
+
+  const { producto } = useProductos();
 
   return (
     <>
@@ -22,14 +26,22 @@ function ListasModal({ mostrarListas, manejarCerradoListas, idProducto }) {
               <p>Selecciona la lista a la que quieras añadir el producto.</p>
             </div>
             <div className="modal-footer" id="modal-footer-listas">
-              <button
+              {/* <button
                 className="btn btn-cancelar"
                 onClick={manejarCerradoListas}
               >
-                {" "}
-                {/* Al hacer clic en el botón cancelar, se cierra el modal. */}
                 Cancelar
-              </button>
+              </button> */}
+              <label htmlFor="cantidad">Cantidad: </label>
+              <input
+                type="number"
+                name="cantidad"
+                min={1}
+                value={cantidad || ""}
+                onChange={(e) => {
+                  actualizarCantidad(e.target.value);
+                }}
+              />
               <div className="listas-modal">
                 {listadoListas.map((lista, i) => (
                   <button
@@ -49,9 +61,7 @@ function ListasModal({ mostrarListas, manejarCerradoListas, idProducto }) {
               </div>
             </div>
           </div>
-        
         </div>
-        
       )}
     </>
   );

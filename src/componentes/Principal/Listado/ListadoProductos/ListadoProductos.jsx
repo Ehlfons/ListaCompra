@@ -4,7 +4,7 @@ import useProductos from "../../../../hooks/useProductos.jsx";
 
 // Componente para mostrar el listado de Productos y el mensaje de error.
 const ListadoProductos = () => {
-  const { listadoProductos, situacion} = useProductos();
+  const { listadoProductos, situacion } = useProductos();
 
   return (
     <Fragment>

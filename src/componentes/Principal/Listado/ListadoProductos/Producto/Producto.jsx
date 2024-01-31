@@ -8,7 +8,7 @@ import useListas from "../../../../../hooks/useListas.jsx";
 // Estructura de cada Producto.
 const Producto = (props) => {
   const { id, nombre, peso, precio, imagen, descripcion } = props.datos; // Datos del producto.
-  const { idListaActual } = useListas(); // Importado desde el contexto a través del hook useProductos.
+  const { idListaActual, productosLista } = useListas(); // Importado desde el contexto a través del hook useProductos.
 
   // Valor inicial del modal de confirmación.
   const valorInicialModal = false;

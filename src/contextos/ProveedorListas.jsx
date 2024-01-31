@@ -18,6 +18,7 @@ const ProveedorListas = ({ children }) => {
   const [situacion, setSituacion] = useState(cadenaInicial);
   const [productosLista, setProductosLista] = useState(arrayInicial); // Estado para guardar los productos de la lista.
   const [erroresLista, setErroresLista] = useState(arrayInicial); // Estado para guardar los errores de la creación de la lista.
+  const [cantidad, setCantidad] = useState(cadenaInicial);
 
   // Función para obtener el listado de Listas.
   const obtenerListadoListas = async () => {
@@ -165,6 +166,40 @@ const ProveedorListas = ({ children }) => {
   };
 
   // Función para insertar el producto en la lista.
+  const insertProductoListaCantidad = async (producto_id, lista_id, cantidad) => {
+    try {
+      // Insertar el producto en la lista.
+      const { data, error } = await supabaseConexion
+        .from("productos_lista_compra")
+        .select("*")
+        .eq("lista_id", lista_id)
+        .eq("producto_id", producto_id);
+
+      if (error) {
+        throw error;
+      } else {
+        getProductosLista(lista_id);
+
+        if (data && data.length > 0) {
+          const newCantidad = data[0].cantidad + cantidad;
+          await supabaseConexion
+            .from("productos_lista_compra")
+            .update({ cantidad: newCantidad })
+            .match({ lista_id, producto_id });
+        } else {
+          await supabaseConexion
+            .from("productos_lista_compra")
+            .insert({ lista_id, producto_id, cantidad });
+        }
+      }
+      // Actualizar los productos de la lista con los nuevos cambios.
+      getProductosLista(lista_id);
+    } catch (error) {
+      setSituacion(`Error al crear la lista: ${error.message}`);
+    }
+  };
+
+  // Función para insertar el producto en la lista.
   const insertProductoLista = async (producto_id, lista_id) => {
     try {
       // Verificar si el producto ya está en la lista.
@@ -222,6 +257,11 @@ const ProveedorListas = ({ children }) => {
     setErroresLista(nuevoValor);
   }
 
+  // Función para actualizar la cantidad de productos de la lista.
+  const actualizarCantidad = (nuevoValor) => {
+    setCantidad(nuevoValor);
+  };
+
   // Efecto para obtener el listado de Listas.
   useEffect(() => {
     obtenerListadoListas();
@@ -245,6 +285,8 @@ const ProveedorListas = ({ children }) => {
     erroresLista,
     actualizarErroresLista,    
     validarFormulario,
+    cantidad,
+    actualizarCantidad,
   };
 
   return (
