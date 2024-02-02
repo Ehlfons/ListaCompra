@@ -19,7 +19,6 @@ const FormularioProductos = ({crear}) => {
   return (
     <Fragment>
       <div id="detailsforms">
-        <h2 className="formulario-h2">Información Producto</h2>
         {situacion.length > 0 ? (
           situacion
         ) : (
