@@ -4,17 +4,32 @@ import useProductos from '../../hooks/useProductos';
 import CrearProductoModal from '../../modales/CrearProductoModal.jsx';
 
 const SubNavProductos = () => {
-  const {menuProductosVisible} = useProductos()
+  const {menuProductosVisible, actualizarErroresFormulario} = useProductos()
 
   const [crearProductosVisible, setCrearProductosVisible] = useState(false);
 
   const mostrarCrearProductos = () => {
     setCrearProductosVisible(true);
+
+    // Limpiar todos los errores al abrir el formulario.
+    actualizarErroresFormulario({
+      nombre: undefined,
+      precio: undefined,
+      peso: undefined,
+    });
   };
 
   const cerrarCrearProductos = () => {
     setCrearProductosVisible(false);
+    
+    // Limpiar todos los errores al cerrar el formulario.
+    actualizarErroresFormulario({
+      nombre: undefined,
+      precio: undefined,
+      peso: undefined,
+    });
   };
+
   return (
     <Fragment>
       <div className={menuProductosVisible ? 'SubNav' : 'SubNav hide'}>

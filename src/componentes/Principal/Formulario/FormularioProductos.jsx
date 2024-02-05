@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import useProductos from "../../../hooks/useProductos.jsx";
 import "./FormularioProductos.css";
 import "./FormularioProductosModal.css";
@@ -21,6 +21,13 @@ const FormularioProductos = ({ crear }) => {
 
     if (esValido) {
       crear ? insertProducto(e) : updateProducto(e);
+      
+      // Limpiar todos los errores al enviar el formulario.
+      actualizarErroresFormulario({
+        nombre: undefined,
+        precio: undefined,
+        peso: undefined,
+      });
     } else {
       actualizarErroresFormulario(errores); // Actualizar el estado de los errores.
     }

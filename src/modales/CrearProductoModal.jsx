@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import FormularioProductos from "../componentes/Principal/Formulario/FormularioProductos.jsx";
 
-const CrearListasModal = ({ mostrar, manejarCerrado }) => {
+const CrearProductoModal = ({ mostrar, manejarCerrado }) => {
   return (
     <Fragment>
       {mostrar && (
@@ -23,4 +23,4 @@ const CrearListasModal = ({ mostrar, manejarCerrado }) => {
   );
 };
 
-export default CrearListasModal;
+export default CrearProductoModal;
