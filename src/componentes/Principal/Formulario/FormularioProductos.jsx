@@ -1,9 +1,19 @@
 import { Fragment, useState } from "react";
 import useProductos from "../../../hooks/useProductos.jsx";
 import "./FormularioProductos.css";
+import "./FormularioProductosModal.css";
 
-const FormularioProductos = ({crear}) => {
-  const { producto, situacion, cambiarDatosProducto, insertProducto, updateProducto, validarFormulario, erroresFormulario, actualizarErroresFormulario } = useProductos();
+const FormularioProductos = ({ crear }) => {
+  const {
+    producto,
+    situacion,
+    cambiarDatosProducto,
+    insertProducto,
+    updateProducto,
+    validarFormulario,
+    erroresFormulario,
+    actualizarErroresFormulario,
+  } = useProductos();
 
   // Manejador del evento clic del botón Crear Producto.
   const manejarClick = (e) => {
@@ -18,14 +28,20 @@ const FormularioProductos = ({crear}) => {
 
   return (
     <Fragment>
-      <div id="detailsforms">
+      <div id={crear ? "detailsformsmodal" : "detailsforms"}>
         {situacion.length > 0 ? (
           situacion
         ) : (
-          <div id="formulario">
+          <div id={crear ? "formulariomodal" : "formulario"}>
             <p>
-              <label htmlFor="nombre">Nombre: </label>
+              <label
+                className={crear ? "labelmodal" : "label"}
+                htmlFor="nombre"
+              >
+                Nombre:{" "}
+              </label>
               <input
+                className={crear ? "inputmodal" : "input"}
                 type="text"
                 name="nombre"
                 value={producto.nombre || ""}
@@ -38,11 +54,19 @@ const FormularioProductos = ({crear}) => {
                   }));
                 }}
               />
-              {erroresFormulario.nombre ? <small>{erroresFormulario.nombre}</small> : null}
+              {erroresFormulario.nombre ? (
+                <small>{erroresFormulario.nombre}</small>
+              ) : null}
             </p>
             <p>
-              <label htmlFor="precio">Precio: </label>
+              <label
+                className={crear ? "labelmodal" : "label"}
+                htmlFor="precio"
+              >
+                Precio:{" "}
+              </label>
               <input
+                className={crear ? "inputmodal" : "input"}
                 type="number"
                 name="precio"
                 min={0}
@@ -56,11 +80,16 @@ const FormularioProductos = ({crear}) => {
                   }));
                 }}
               />
-              {erroresFormulario.precio ? <small>{erroresFormulario.precio}</small> : null}
+              {erroresFormulario.precio ? (
+                <small>{erroresFormulario.precio}</small>
+              ) : null}
             </p>
             <p>
-              <label htmlFor="peso">Peso: </label>
+              <label className={crear ? "labelmodal" : "label"} htmlFor="peso">
+                Peso:{" "}
+              </label>
               <input
+                className={crear ? "inputmodal" : "input"}
                 type="number"
                 name="peso"
                 min={0}
@@ -74,11 +103,19 @@ const FormularioProductos = ({crear}) => {
                   }));
                 }}
               />
-              {erroresFormulario.peso ? <small>{erroresFormulario.peso}</small> : null}
+              {erroresFormulario.peso ? (
+                <small>{erroresFormulario.peso}</small>
+              ) : null}
             </p>
             <p>
-              <label htmlFor="descripcion">Descripción: </label>
+              <label
+                className={crear ? "labelmodal" : "label"}
+                htmlFor="descripcion"
+              >
+                Descripción:{" "}
+              </label>
               <input
+                className={crear ? "inputmodal" : "input"}
                 type="text"
                 name="descripcion"
                 value={producto.descripcion || ""}
@@ -88,8 +125,14 @@ const FormularioProductos = ({crear}) => {
               />
             </p>
             <p>
-              <label htmlFor="imagen">Imagen:</label>
+              <label
+                className={crear ? "labelmodal" : "label"}
+                htmlFor="imagen"
+              >
+                Imagen:
+              </label>
               <input
+                className={crear ? "inputmodal" : "input"}
                 type="url"
                 name="imagen"
                 value={producto.imagen || ""}
@@ -100,7 +143,7 @@ const FormularioProductos = ({crear}) => {
             </p>
             <p>
               <button
-                className="crear-producto"
+                className={crear ? "crear-producto-modal" : "crear-producto"}
                 onClick={(e) => {
                   manejarClick(e);
                 }}
