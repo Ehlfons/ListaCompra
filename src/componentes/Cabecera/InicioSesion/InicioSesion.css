@@ -1,5 +1,11 @@
 #login {
     border: 2px solid lightsalmon;
-    padding: 30px 30px;
+    width: 170px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: lightsalmon;
+    cursor: pointer;
+    font-size: 18px;
 }

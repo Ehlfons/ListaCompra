@@ -1,13 +1,10 @@
 import useListas from "../hooks/useListas";
-import useProductos from "../hooks/useProductos";
 import "./Modales.css";
 import "./ListasModal.css";
 
 function ListasModal({ mostrarListas, manejarCerradoListas, idProducto }) {
   const { listadoListas, insertProductoLista, actualizarIdListaActual, cantidad, actualizarCantidad } =
     useListas(); // Importado desde el contexto a través del hook useProductos.
-
-  const { producto } = useProductos();
 
   return (
     <>
