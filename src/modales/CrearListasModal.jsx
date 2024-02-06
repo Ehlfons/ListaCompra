@@ -34,7 +34,7 @@ const CrearListasModal = ({ mostrar, manejarCerrado }) => {
                 name="nombre"
                 placeholder="Nombre de la lista"
                 id="input-nombre-lista"
-                value={lista.lista_nombre}
+                value={lista.lista_nombre || ""}
                 onChange={(e) => {
                   createLista(e.target.value);
                   // Limpiar el error al cambiar el contenido del campo.

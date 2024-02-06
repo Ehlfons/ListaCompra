@@ -7,25 +7,28 @@ import ProveedorProductos from "./contextos/ProveedorProductos.jsx";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import ProveedorListas from "./contextos/ProveedorListas.jsx";
+import ProveedorUsuarios from "./contextos/ProveedorUsuarios.jsx";
 
 function App() {
   return (
     <Fragment>
       <BrowserRouter>
-        <ProveedorProductos>
-          <ProveedorListas>
-            <header>
-              <Cabecera />
-            </header>
-            <main>
-              <Menu />
-              <Principal />
-            </main>
-            <footer>
-              <Pie />
-            </footer>
-          </ProveedorListas>
-        </ProveedorProductos>
+        <ProveedorUsuarios>
+          <ProveedorProductos>
+            <ProveedorListas>
+              <header>
+                <Cabecera />
+              </header>
+              <main>
+                <Menu />
+                <Principal />
+              </main>
+              <footer>
+                <Pie />
+              </footer>
+            </ProveedorListas>
+          </ProveedorProductos>
+        </ProveedorUsuarios>
       </BrowserRouter>
     </Fragment>
   );

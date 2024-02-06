@@ -1,7 +1,12 @@
 import React, { Fragment } from "react";
+import useUsuarios from "../../../hooks/useUsuarios.jsx";
 import "./Login.css";
+/* import { Auth } from "@supabase/auth-ui-react";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { supabaseConexion } from "../../../config/supabase.js"; */
 
 const Login = ({ mostrar, manejarCerrado }) => {
+  const { iniciarSesion, actualizarDato, errorUsuario, registro } = useUsuarios();
   return (
     <Fragment>
       {mostrar && (
@@ -25,7 +30,7 @@ const Login = ({ mostrar, manejarCerrado }) => {
             </div>
             <br />
             <div className="input_container">
-              <label className="input_label" htmlFor="email_field">
+              <label className="input_label" htmlFor="email">
                 Email
               </label>
               <svg
@@ -53,14 +58,17 @@ const Login = ({ mostrar, manejarCerrado }) => {
               <input
                 placeholder="name@mail.com"
                 title="Email"
-                name="input-name"
-                type="text"
+                type="email"
+                name="email"
                 className="input_field"
-                id="email_field"
+                id="email"
+                onChange={(e) => {
+                  actualizarDato(e);
+                }}
               />
             </div>
             <div className="input_container">
-              <label className="input_label" htmlFor="password_field">
+              <label className="input_label" htmlFor="password">
                 Password
               </label>
               <svg
@@ -92,17 +100,34 @@ const Login = ({ mostrar, manejarCerrado }) => {
               <input
                 placeholder="Password"
                 title="Password"
-                name="input-name"
                 type="password"
+                name="password"
                 className="input_field"
-                id="password_field"
+                id="password"
+                onChange={(e) => {
+                  actualizarDato(e);
+                }}
               />
             </div>
-            <button title="Sign In" type="submit" className="sign-in_btn">
+            <button
+              title="Sign In"
+              type="submit"
+              className="sign-in_btn"
+              onClick={() => {
+                registro();
+              }}
+            >
               <span>Sign In</span>
             </button>
             <p className="note">¿No tienes cuenta? Regístrate aquí</p>
+
+            
+            {errorUsuario && <div>{errorUsuario}</div>};
           </form>
+          {/* <Auth
+            supabaseClient={supabaseConexion}
+            appearance={{ theme: ThemeSupa }}
+          /> */}
         </div>
       )}
     </Fragment>
