@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import useUsuarios from "../../../hooks/useUsuarios.jsx";
 import "./Login.css";
 /* import { Auth } from "@supabase/auth-ui-react";
@@ -6,7 +6,21 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supabaseConexion } from "../../../config/supabase.js"; */
 
 const Login = ({ mostrar, manejarCerrado }) => {
-  const { iniciarSesion, actualizarDato, errorUsuario, registro } = useUsuarios();
+  const { iniciarSesion, actualizarDato, errorUsuario, registro, sesionIniciada, confirmInicioSesion } = useUsuarios();
+
+  useEffect(() => {
+    if (sesionIniciada) {
+      // Si la sesión se inicia correctamente, cierra el modal y muestra un mensaje al usuario.
+      manejarCerrado();
+      confirmInicioSesion();
+    }
+  }, [sesionIniciada]);
+
+  const manejarInicioSesion = (e) => {
+    e.preventDefault();
+    iniciarSesion();
+  };
+  
   return (
     <Fragment>
       {mostrar && (
@@ -110,19 +124,27 @@ const Login = ({ mostrar, manejarCerrado }) => {
               />
             </div>
             <button
-              title="Sign In"
-              type="submit"
+              title="Login"
               className="sign-in_btn"
-              onClick={() => {
+              onClick={(e) => {
+                manejarInicioSesion(e);
+              }}
+            >
+              <span>Login</span>
+            </button>
+            <button
+              title="Register"
+              className="sign-in_btn"
+              onClick={(e) => {
+                e.preventDefault();
                 registro();
               }}
             >
-              <span>Sign In</span>
+              <span>Register</span>
             </button>
-            <p className="note">¿No tienes cuenta? Regístrate aquí</p>
+            <a className="note">¿No tienes cuenta? Regístrate aquí</a>
 
-            
-            {errorUsuario && <div>{errorUsuario}</div>};
+            {errorUsuario && <div className="error-usuario">{errorUsuario}</div>};
           </form>
           {/* <Auth
             supabaseClient={supabaseConexion}

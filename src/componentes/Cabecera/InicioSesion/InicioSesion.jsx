@@ -4,7 +4,7 @@ import Login from "./Login.jsx";
 import useUsuarios from "../../../hooks/useUsuarios.jsx";
 
 const InicioSesion = () => {
-  const { sesionIniciada, cerrarSesion } = useUsuarios();
+  const { sesionIniciada, cerrarSesion, confirmacionInicioSesion } = useUsuarios();
 
   const valorInicialModal = false;
 
@@ -20,6 +20,7 @@ const InicioSesion = () => {
 
   return (
     <Fragment>
+      {confirmacionInicioSesion && <div>Se ha iniciado sesión correctamente.</div>}
       <div id="login">
         <a
           onClick={() => {

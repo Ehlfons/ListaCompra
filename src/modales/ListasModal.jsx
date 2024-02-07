@@ -23,22 +23,18 @@ function ListasModal({ mostrarListas, manejarCerradoListas, idProducto }) {
               <p>Selecciona la lista a la que quieras añadir el producto.</p>
             </div>
             <div className="modal-footer" id="modal-footer-listas">
-              {/* <button
-                className="btn btn-cancelar"
-                onClick={manejarCerradoListas}
-              >
-                Cancelar
-              </button> */}
-              <label htmlFor="cantidad">Cantidad: </label>
-              <input
-                type="number"
-                name="cantidad"
-                min={1}
-                value={cantidad || ""}
-                onChange={(e) => {
-                  actualizarCantidad(e.target.value);
-                }}
-              />
+              <div>
+                <label htmlFor="cantidad">Cantidad: </label>
+                <input
+                  type="number"
+                  name="cantidad"
+                  min={1}
+                  value={cantidad || ""}
+                  onChange={(e) => {
+                    actualizarCantidad(e.target.value);
+                  }}
+                />
+              </div>
               <div className="listas-modal">
                 {listadoListas.map((lista, i) => (
                   <button

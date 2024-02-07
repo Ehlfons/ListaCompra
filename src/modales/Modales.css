@@ -77,16 +77,6 @@
   margin-top: 10px;
 }
 
-#modal-footer-listas {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: space-between;
-  gap: 5px;
-  align-items: center;
-  padding: 0 1rem;
-  margin-top: 1rem;
-}
-
 .modal-body small {
   margin-top: 3px;
   color: rgb(255, 78, 78);

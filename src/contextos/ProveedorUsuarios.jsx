@@ -12,6 +12,7 @@ const ProveedorUsuarios = ({ children }) => {
   const sesionInicial = false;
   const usuarioInicial = {};
   const errorUsuarioInicial = "";
+  const confirmacionInicioSesionInicial = false;
   const datosSesionInicial = {
     email: "",
     password: "",
@@ -22,6 +23,7 @@ const ProveedorUsuarios = ({ children }) => {
   const [usuario, setUsuario] = useState(usuarioInicial);
   const [errorUsuario, setErrorUsuario] = useState(errorUsuarioInicial);
   const [sesionIniciada, setSesionIniciada] = useState(sesionInicial);
+  const [confirmacionInicioSesion, setConfirmacionInicioSesion] = useState(confirmacionInicioSesionInicial);
 
   // Función para crear una cuenta de usuario.
   const registro = async () => {
@@ -40,6 +42,22 @@ const ProveedorUsuarios = ({ children }) => {
       }
     } catch (error) {
       setErrorUsuario("Error al crear la cuenta de usuario: " + error.message);
+    }
+  };
+
+  const iniciarSesion = async () => {
+    setErrorUsuario(errorUsuarioInicial);
+    try {
+      const { data, error } = await supabaseConexion.auth.signInWithPassword({
+        email: infoSesion.email,
+        password: infoSesion.password,
+      });
+      if (error) {
+        throw error;
+      }
+
+    } catch (error) {
+      setErrorUsuario("Error al iniciar sesión, la cuenta no está registrada.");
     }
   };
 
@@ -76,6 +94,18 @@ const ProveedorUsuarios = ({ children }) => {
     setInfoSesion({ ...infoSesion, [name]: value });
   };
 
+  // Función para mostrar al usuario que se ha iniciado sesión.
+  const confirmInicioSesion = () => {
+    setConfirmacionInicioSesion(true);
+    setTimeout(() => {
+      setConfirmacionInicioSesion(false);
+    }, 3000);
+  };
+
+  const actualizarErrorUsuario = (nuevoValor) => {
+    setErrorUsuario(nuevoValor);
+  }
+
   useEffect(() => {
     const suscripcion = supabaseConexion.auth.onAuthStateChange(
       (e, session) => {
@@ -97,8 +127,14 @@ const ProveedorUsuarios = ({ children }) => {
     sesionIniciada,
     errorUsuario,
     registro,
+    iniciarSesion,
     cerrarSesion,
     actualizarDato,
+    actualizarErrorUsuario,
+    usuario,
+    confirmacionInicioSesion,
+    infoSesion,
+    confirmInicioSesion,    
   };
 
   return (
