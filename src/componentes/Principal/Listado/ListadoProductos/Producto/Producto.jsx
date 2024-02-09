@@ -8,14 +8,15 @@ import useListas from "../../../../../hooks/useListas.jsx";
 // Estructura de cada Producto.
 const Producto = (props) => {
   const { id, nombre, peso, precio, imagen, descripcion } = props.datos; // Datos del producto.
-  const { idListaActual, productosLista } = useListas(); // Importado desde el contexto a través del hook useProductos.
+  const { idListaActual } = useListas(); // Importado desde el contexto a través del hook useProductos.
 
   // Valor inicial del modal de confirmación.
   const valorInicialModal = false;
 
   // Nuevo estado para controlar el modal de confirmación.
   const [mostrarModal, setMostrarModal] = useState(valorInicialModal);
-  const [mostrarModalListas, setMostrarModalListas] = useState(valorInicialModal);
+  const [mostrarModalListas, setMostrarModalListas] =
+    useState(valorInicialModal);
 
   // Función para abrir el modal de confirmación.
   const abrirModal = () => {
@@ -68,7 +69,7 @@ const Producto = (props) => {
         idProducto={id} // Se le pasa el ID del producto que se va a añadir a la lista.
         idListaActual={idListaActual} // Se le pasa el ID de la lista actual para poder añadir el producto solamente a esa lista.
       />
-      {/* Modal de confirmación para eliminar el producto. */}
+      {/* Modal de confirmación para eliminar el producto (de la lista o de la bdda). */}
       {props.onLista ? ( // props.onLista es un booleano que indica si el producto está en la lista o no, para cambiar el modal de borrado.
         <DeleteProductoModal
           mostrar={mostrarModal} // Se le pasa el estado del modal, si es true se muestra, si es false se oculta.

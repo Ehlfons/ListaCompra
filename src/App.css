@@ -62,3 +62,9 @@ footer {
   margin-top: 30px;
   color: red;
 }
+
+.important {
+  color: lightskyblue;
+} .important strong {
+  color: lightgreen;
+}

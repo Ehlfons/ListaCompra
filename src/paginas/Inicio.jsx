@@ -22,10 +22,10 @@ const Inicio = () => {
         encarecidamente que se utilicen las ramas adecuadas en cada momento de
         la unidad.
       </p>
-      <p>
+      <p className="important">
         Necesitas <strong>iniciar sesión</strong> para poder interactuar con la aplicación y
-        realizar funciones como crear tus propias listas. Si no tienes cuenta,
-        puedes registrarte en la parte superior derecha de la página.
+        realizar funciones como ver los productos y crear tus propias listas. Si no tienes cuenta,
+        puedes <strong>registrarte</strong> en la parte superior derecha de la página.
       </p>
       <p>
         Para acceder a las diferentes ramas, tan sólo será necesario cargarlas

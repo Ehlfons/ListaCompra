@@ -3,11 +3,14 @@ import useListas from "../hooks/useListas.jsx";
 import "./Modales.css";
 
 const CrearListasModal = ({ mostrar, manejarCerrado }) => {
+  // Importar el estado y las funciones del contexto de listas.
   const { lista, createLista, insertLista, actualizarIdListaActual, erroresLista, actualizarErroresLista, validarFormulario } = useListas();
   
+  // Función para manejar el clic en el botón de confirmar.
   const manejarClick = (e) => {
     const { esValido, errores } = validarFormulario(lista); // Validar el formulario.
 
+    // Si el formulario es válido, se inserta la lista y se cierra el modal.
     if (esValido) {
       insertLista();
       manejarCerrado();

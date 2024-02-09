@@ -1,6 +1,8 @@
 import { useState, useEffect, createContext } from "react";
 import { supabaseConexion } from "../config/supabase.js";
+import useUsuarios from "../hooks/useUsuarios.jsx";
 
+// Contexto para las listas.
 const ContextoListas = createContext();
 
 const ProveedorListas = ({ children }) => {
@@ -20,19 +22,29 @@ const ProveedorListas = ({ children }) => {
   const [erroresLista, setErroresLista] = useState(arrayInicial); // Estado para guardar los errores de la creación de la lista.
   const [cantidad, setCantidad] = useState(cadenaInicial);
 
+  // Usuario para obtener el ID del usuario autenticado.
+  const { usuario } = useUsuarios();
+
   // Función para obtener el listado de Listas.
   const obtenerListadoListas = async () => {
-    try {
-      const { data, error } = await supabaseConexion
-        .from("lista_compra")
-        .select("*");
-
-      if (error) {
-        throw error;
+    // Si el usuario está autenticado, se obtienen las listas.
+    if (usuario) {
+      try {
+        const { data, error } = await supabaseConexion
+          .from("lista_compra")
+          .select("*")
+          .eq("user_id", usuario.id);
+  
+        if (error) {
+          throw error;
+        } else {
+          setListadoListas(data);
+        }
+      } catch (error) {
+        setSituacion(`Error al obtener el listado: ${error.message}`);
       }
-      setListadoListas(data);
-    } catch (error) {
-      setSituacion(`Error al obtener el listado: ${error.message}`);
+    } else { // Si el usuario no está autenticado, se muestra un mensaje.
+      setSituacion("El usuario no está autenticado.");
     }
   };
 
@@ -181,7 +193,7 @@ const ProveedorListas = ({ children }) => {
         getProductosLista(lista_id);
 
         if (data && data.length > 0) {
-          const newCantidad = data[0].cantidad + cantidad;
+          const newCantidad = parseFloat(data[0].cantidad) + parseFloat(cantidad);
           await supabaseConexion
             .from("productos_lista_compra")
             .update({ cantidad: newCantidad })
@@ -264,8 +276,10 @@ const ProveedorListas = ({ children }) => {
 
   // Efecto para obtener el listado de Listas.
   useEffect(() => {
-    obtenerListadoListas();
-  }, []);
+    if (usuario.id) {
+      obtenerListadoListas();
+    }
+  }, [usuario]); // Se ejecuta cada vez que cambie el usuario, para obtener las listas del usuario con la sesión iniciada.
 
   // Datos a exportar al contexto.
   const datosAExportar = {
@@ -287,6 +301,7 @@ const ProveedorListas = ({ children }) => {
     validarFormulario,
     cantidad,
     actualizarCantidad,
+    insertProductoListaCantidad,
   };
 
   return (

@@ -2,10 +2,12 @@ import React, { useState, useEffect, createContext } from "react";
 import { supabaseConexion } from "../config/supabase.js";
 import { useNavigate } from "react-router-dom";
 
+// Contexto para los usuarios.
 const ContextoUsuarios = createContext();
 
 const ProveedorUsuarios = ({ children }) => {
 
+  // Hook para redirigir a otras páginas.
   const navigate = useNavigate();
 
   // Valores iniciales.
@@ -28,27 +30,33 @@ const ProveedorUsuarios = ({ children }) => {
   // Función para crear una cuenta de usuario.
   const registro = async () => {
     try {
+      // Se crea la cuenta en el servidor de Supabase.
       const { error } = await supabaseConexion.auth.signUp({
         email: infoSesion.email,
         password: infoSesion.password,
       });
 
+      // Si hay un error, se lanza una excepción.
       if (error) {
         throw error;
-      } else {
+      } else { // Si no hay error, se muestra un mensaje al usuario.
         setErrorUsuario(
           "Recibirás un correo para la confirmación del registro."
         );
+
+        resetInputs(); // Se resetean los inputs del formulario.
       }
     } catch (error) {
-      setErrorUsuario("Error al crear la cuenta de usuario: " + error.message);
+      setErrorUsuario("Error al crear la cuenta: " + error.message);
     }
   };
 
+  // Función para iniciar sesión.
   const iniciarSesion = async () => {
-    setErrorUsuario(errorUsuarioInicial);
+    setErrorUsuario(errorUsuarioInicial); // Se resetea el error del formulario de inicio de sesión.
     try {
-      const { data, error } = await supabaseConexion.auth.signInWithPassword({
+      // Se inicia sesión en el servidor de Supabase.
+      const { error } = await supabaseConexion.auth.signInWithPassword({
         email: infoSesion.email,
         password: infoSesion.password,
       });
@@ -56,8 +64,11 @@ const ProveedorUsuarios = ({ children }) => {
         throw error;
       }
 
+      confirmInicioSesion(); // Se muestra un mensaje al usuario.
+      resetInputs(); // Se resetean los inputs del formulario.
+
     } catch (error) {
-      setErrorUsuario("Error al iniciar sesión, la cuenta no está registrada.");
+      setErrorUsuario("Error al iniciar sesión: " + error.message);
     }
   };
 
@@ -76,11 +87,13 @@ const ProveedorUsuarios = ({ children }) => {
   // Función para obtener los datos del usuario.
   const obtenerUsuario = async () => {
     try {
+      // Se obtiene la información del usuario que tiene sesión iniciada.
       const { data, error } = await supabaseConexion.auth.getUser();
 
       if (error) {
         throw error;
       }
+      // Se actualiza el estado del usuario.
       setUsuario(data.user);
 
     } catch (error) {
@@ -102,22 +115,26 @@ const ProveedorUsuarios = ({ children }) => {
     }, 3000);
   };
 
+  // Función para actualizar el error del usuario.
   const actualizarErrorUsuario = (nuevoValor) => {
     setErrorUsuario(nuevoValor);
+  }
+
+  // Función para resetear los inputs.
+  const resetInputs = () => {
+    setInfoSesion(datosSesionInicial);
   }
 
   useEffect(() => {
     const suscripcion = supabaseConexion.auth.onAuthStateChange(
       (e, session) => {
        if (session) {
-          navigate("/");
-          setSesionIniciada(true);
-          // Información del usuario que tiene sesión iniciada.
-          obtenerUsuario();
+          navigate("/"); // Redirige a la página principal.
+          setSesionIniciada(true); // Cambia el estado de la sesión a iniciada.
+          obtenerUsuario(); // Obtiene los datos del usuario.
         } else {
-          navigate("/");
-          setSesionIniciada(false);
-
+          navigate("/"); // Redirige a la página principal.
+          setSesionIniciada(false); // Cambia el estado de la sesión a no iniciada.
         }
       }
     );
@@ -134,7 +151,8 @@ const ProveedorUsuarios = ({ children }) => {
     usuario,
     confirmacionInicioSesion,
     infoSesion,
-    confirmInicioSesion,    
+    confirmInicioSesion,  
+    resetInputs  
   };
 
   return (

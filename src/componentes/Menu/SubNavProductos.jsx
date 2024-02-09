@@ -1,13 +1,20 @@
-import {Fragment, useState} from 'react'
-import { Link } from 'react-router-dom';
-import useProductos from '../../hooks/useProductos';
-import CrearProductoModal from '../../modales/CrearProductoModal.jsx';
+import { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
+import useProductos from "../../hooks/useProductos";
+import useUsuarios from "../../hooks/useUsuarios.jsx";
+import CrearProductoModal from "../../modales/CrearProductoModal.jsx";
 
 const SubNavProductos = () => {
-  const {menuProductosVisible, actualizarErroresFormulario} = useProductos()
+  // Importar el estado de menuProductosVisible desde el contexto a través del hook useProductos.
+  const { menuProductosVisible, actualizarErroresFormulario } = useProductos();
 
+  // Importar el estado de usuario desde el contexto a través del hook useUsuarios.
+  const { usuario } = useUsuarios();
+
+  // Estado para mostrar u ocultar el modal de crear productos.
   const [crearProductosVisible, setCrearProductosVisible] = useState(false);
 
+  // Mostrar el modal de crear productos.
   const mostrarCrearProductos = () => {
     setCrearProductosVisible(true);
 
@@ -19,9 +26,10 @@ const SubNavProductos = () => {
     });
   };
 
+  // Cerrar el modal de crear productos.
   const cerrarCrearProductos = () => {
     setCrearProductosVisible(false);
-    
+
     // Limpiar todos los errores al cerrar el formulario.
     actualizarErroresFormulario({
       nombre: undefined,
@@ -32,22 +40,27 @@ const SubNavProductos = () => {
 
   return (
     <Fragment>
-      <div className={menuProductosVisible ? 'SubNav' : 'SubNav hide'}>
-        <nav>
-          <ul>
-            <li>
-              <a onClick={mostrarCrearProductos}>Crear</a>
-            </li>
-            <li>
-              <Link to="/Edicion">Editar</Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      {usuario.role === "listas_admin" && (
+        <div className={menuProductosVisible ? "SubNav" : "SubNav hide"}>
+          <nav>
+            <ul>
+              <li>
+                <a onClick={mostrarCrearProductos}>Crear</a>
+              </li>
+              <li>
+                <Link to="/Edicion">Editar</Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      )}
 
-      <CrearProductoModal mostrar={crearProductosVisible} manejarCerrado={cerrarCrearProductos} />
+      <CrearProductoModal
+        mostrar={crearProductosVisible}
+        manejarCerrado={cerrarCrearProductos}
+      />
     </Fragment>
-  )
-}
+  );
+};
 
-export default SubNavProductos
+export default SubNavProductos;

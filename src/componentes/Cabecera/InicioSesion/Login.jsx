@@ -1,26 +1,31 @@
 import React, { Fragment, useEffect } from "react";
 import useUsuarios from "../../../hooks/useUsuarios.jsx";
 import "./Login.css";
-/* import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { supabaseConexion } from "../../../config/supabase.js"; */
 
 const Login = ({ mostrar, manejarCerrado }) => {
-  const { iniciarSesion, actualizarDato, errorUsuario, registro, sesionIniciada, confirmInicioSesion } = useUsuarios();
+  // Importar el estado y las funciones del contexto de usuarios.
+  const {
+    iniciarSesion,
+    actualizarDato,
+    errorUsuario,
+    registro,
+    actualizarErrorUsuario,
+  } = useUsuarios();
 
-  useEffect(() => {
-    if (sesionIniciada) {
-      // Si la sesión se inicia correctamente, cierra el modal y muestra un mensaje al usuario.
-      manejarCerrado();
-      confirmInicioSesion();
-    }
-  }, [sesionIniciada]);
-
+  /// Lógica para el evento onClick del botón de inicio de sesión.
   const manejarInicioSesion = (e) => {
     e.preventDefault();
     iniciarSesion();
+    actualizarErrorUsuario("");
   };
-  
+
+  // Lógica para el evento onClick del botón de registro.
+  const manejarRegistro = (e) => {
+    e.preventDefault();
+    registro();
+    actualizarErrorUsuario("");
+  }
+
   return (
     <Fragment>
       {mostrar && (
@@ -28,7 +33,10 @@ const Login = ({ mostrar, manejarCerrado }) => {
           <form className="form_container">
             <span
               className="cerrar-modal cerrar-modal-login"
-              onClick={manejarCerrado}
+              onClick={() => {
+                manejarCerrado();
+                actualizarErrorUsuario("");
+              }}
             >
               &times;
             </span>
@@ -36,7 +44,7 @@ const Login = ({ mostrar, manejarCerrado }) => {
               <img src="src/assets/supabaseLogo.png" alt="" />
             </div>
             <div className="title_container">
-              <p className="title">Login to your Account</p>
+              <p className="title">Login & Register</p>
               <span className="subtitle">
                 Get started with our app, just create an account and enjoy the
                 experience.
@@ -136,20 +144,15 @@ const Login = ({ mostrar, manejarCerrado }) => {
               title="Register"
               className="sign-in_btn"
               onClick={(e) => {
-                e.preventDefault();
-                registro();
+                manejarRegistro(e);
               }}
             >
               <span>Register</span>
             </button>
-            <a className="note">¿No tienes cuenta? Regístrate aquí</a>
-
-            {errorUsuario && <div className="error-usuario">{errorUsuario}</div>};
+            {errorUsuario && (
+              <div className="error-usuario">{errorUsuario}</div>
+            )}
           </form>
-          {/* <Auth
-            supabaseClient={supabaseConexion}
-            appearance={{ theme: ThemeSupa }}
-          /> */}
         </div>
       )}
     </Fragment>

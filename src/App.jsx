@@ -10,6 +10,15 @@ import ProveedorListas from "./contextos/ProveedorListas.jsx";
 import ProveedorUsuarios from "./contextos/ProveedorUsuarios.jsx";
 
 function App() {
+  /* Usuario administrador (con permisos de borrado y edición de productos):
+   * email: sergioalfonso.alu@iespacomolla.es
+   * contraseña: 123456 
+   */
+
+  /* Usuario autenticado:
+   * email: sergioalfonso112.sa@gmail.com
+   * contraseña: 123456 
+   */
   return (
     <Fragment>
       <BrowserRouter>
