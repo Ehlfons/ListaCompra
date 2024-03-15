@@ -27,7 +27,9 @@ This is a shopping list application built with React, utilizing Supabase for use
 
 ## 👥 Contributors
 
-- [![Ehlfons Badge](https://github.com/ehlfons.png)](https://github.com/ehlfons)
+<a href="https://github.com/ehlfons">
+  <img src="https://github.com/ehlfons.png" alt="GitHub Badge" width="100" height="100">
+</a>
 
 ## 📝 License
 
