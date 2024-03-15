@@ -22,10 +22,19 @@ const Inicio = () => {
         encarecidamente que se utilicen las ramas adecuadas en cada momento de
         la unidad.
       </p>
+<<<<<<< HEAD
+=======
+      <p className="important">
+        Necesitas <strong>iniciar sesión</strong> para poder interactuar con la aplicación y
+        realizar funciones como ver los productos y crear tus propias listas. Si no tienes cuenta,
+        puedes <strong>registrarte</strong> en la parte superior derecha de la página.
+      </p>
+>>>>>>> origin/usuarios
       <p>
         Para acceder a las diferentes ramas, tan sólo será necesario cargarlas
         con los siguientes comandos en el terminal:
       </p>
+<<<<<<< HEAD
       <ol start='0'>
         <li>git checkout main (estado inicial)</li>
         <li>git checkout consulta</li>
@@ -33,9 +42,23 @@ const Inicio = () => {
         <li>git checkout actualizacion</li>
         <li>git checkout borrado</li>
         <li>git checkout autentificacion</li>
+=======
+      <ol start="0">
+        <li>git switch master (estado inicial)</li>
+        <li>git switch consulta</li>
+        <li>git switch creacion</li>
+        <li>git switch actualizacion</li>
+        <li>git switch borrado</li>
+        <li>git switch listas</li>
+        <li>git switch usuarios</li>
+>>>>>>> origin/usuarios
       </ol>
     </Fragment>
   );
 };
 
+<<<<<<< HEAD
 export default Inicio;
+=======
+export default Inicio;
+>>>>>>> origin/usuarios

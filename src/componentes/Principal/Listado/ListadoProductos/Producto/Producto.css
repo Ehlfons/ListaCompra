@@ -1,0 +1,47 @@
+div img {
+    margin-left: 1%;
+    width: 40px;
+    height: 40px;
+}
+
+.producto {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8em;
+    margin: 0 20px;
+    padding: 5px 0;    
+    border: 2px solid lavender;
+    gap: 10px;
+    cursor: pointer;
+}
+.producto:hover {
+    scale: 1.02;
+}
+
+.producto p {
+    margin-right: auto;
+    margin-left: 5px;
+}
+
+.cart {
+    margin-left: auto;
+    margin-right: -10px;
+    padding: 0 3px;
+    background-color: lavender;
+    border: rgb(43, 142, 223) solid 1px;
+}
+.cart:hover {
+    outline: rgb(43, 142, 223) solid 2px;
+}
+
+.trash {
+    margin-right: 5px;
+    padding-left: 3px;
+    background-color: lavender;
+    border: rgb(43, 142, 223) solid 1px;
+}
+.trash:hover {
+    outline: rgb(43, 142, 223) solid 2px;
+}

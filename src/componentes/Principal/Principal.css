@@ -1,8 +1,15 @@
 #principal {
     margin: 10px 5px 20px;
+<<<<<<< HEAD
     height: 88.4%;
     border: 2px solid burlywood;
     padding: 0 20px;
+=======
+    height: auto;
+    border: 2px solid burlywood;
+    padding: 0 20px 20px;
+    min-height: 100px;
+>>>>>>> origin/usuarios
 }
 
 #principal-h2 {
@@ -11,8 +18,21 @@
     margin-top: 20px;
 }
 
+<<<<<<< HEAD
 #info {
     display: grid;
     grid-template-columns: 1.3fr 0.7fr;
     grid-template-rows: 62vh;
+=======
+em {
+    font-style: normal;
+    margin-left: 5px;
+    font-weight: 400;
+    color: whitesmoke;
+    font-size: 0.8em;
+}
+
+.listas-productos {
+    margin-bottom: 20px;
+>>>>>>> origin/usuarios
 }
