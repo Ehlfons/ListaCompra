@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-import './Acciones.css'
-
-const Acciones = () => {
-  return (
-    <div id='acciones'>
-        <h2 id="acciones-h2">Acciones sobre listado</h2>
-    </div>
-  )
-}
-
-export default Acciones
-=======
 import React, { Fragment } from "react";
 import useProductos from "../../../../hooks/useProductos.jsx";
 import "./Acciones.css";
@@ -117,4 +103,3 @@ const Acciones = () => {
 };
 
 export default Acciones;
->>>>>>> origin/usuarios

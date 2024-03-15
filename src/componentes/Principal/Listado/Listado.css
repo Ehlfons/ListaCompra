@@ -1,27 +1,14 @@
-<<<<<<< HEAD
-#listado-productos {
-=======
 #contenedor-productos {
->>>>>>> origin/usuarios
     margin: 5px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-<<<<<<< HEAD
-    height: 97.6%;
-    width: 97%;
-    border: 2px solid lavender;
-}
-
-#listado-productos-h2 {
-=======
     border: 2px solid lavender;
     position: relative;
     padding-bottom: 20px;
 }
 
 #contenedor-productos-h2 {
->>>>>>> origin/usuarios
     color: lavender;
     font-size: 1em;
     margin-left: 20px;

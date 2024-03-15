@@ -4,8 +4,6 @@
     border: 2px solid lightcoral;
     font-weight: 400;
     padding: 5px 10px;
-<<<<<<< HEAD
-=======
 }
 
 #filtros {
@@ -79,5 +77,4 @@
 .hide {
     display: none;
     visibility: hidden;
->>>>>>> origin/usuarios
 }
